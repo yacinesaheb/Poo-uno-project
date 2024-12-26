@@ -12,7 +12,7 @@
 #### Deck class :
 
 #### Player class :
-- Mother class Player divides into two daughter classes Human and robot. Robot's hand is not displayed.
+- Mother class Player divides into two daughter classes Human and robot. Robot's hand is not displayed. Player is asked what card he plays but robot plays the first playable card.
 - Every player has a hand that contains all his cards. He can only play cards from this hand.
 - A player can Play a card that matches the top card of the discard pile in color and number(if not a special card). So he will loose a card from his hand and add it to the pile.
 - Whenever a player plays a card, we have to rearrange the hand to fill the gap that the lost card left.

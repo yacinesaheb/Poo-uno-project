@@ -62,24 +62,18 @@ public class Turn {
             head.prev = newNode;
         }
     }
+    
+    //next method
+    public Node next(boolean gamedirection, Node tracker) {
+        if (gamedirection) {
+            return tracker.next;
+        } else {
+            return tracker.prev;
+        }
+    }
+	
+	
 
-    // directions:
-public void next(boolean gamedirection ,Node tracker) {
-	if(gamedirection) {
-		
-		tracker=tracker.next;
-	}else {
-		
-		tracker=tracker.prev;
-		
-	}
-		
-	
-	
-	
-	
-	
-}
     // Displays the list of players.
      //Prints the name of each player in the list, indicating if it's a human or a robot.
      

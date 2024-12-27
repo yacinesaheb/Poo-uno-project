@@ -11,11 +11,27 @@ public class Node {
     Node prev; // Pointer to the previous node in the list
 
     // Methods
-
+    public Node() {
+        this.human = null;
+        this.robot = null;
+        this.next = null;
+        this.prev = null;
+    }
+    // Constructor
+    public void setNode(String playerType, String playerName) {
+        if ("human".equalsIgnoreCase(playerType)) {
+            addHuman(playerName);
+        } else if ("robot".equalsIgnoreCase(playerType)) {
+            addRobot();
+        } else {
+            System.out.println("Invalid player type. Use 'human' or 'robot'.");
+        }
+    }
     // Initializes the node for a human player.playerName The name of the human player to be added.
     public void addHuman(String playerName) {
         this.human = new Human(); // Create a new Human object
         this.human.setName(playerName); // Assign the player's name
+        this.human.setHand(null);
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }

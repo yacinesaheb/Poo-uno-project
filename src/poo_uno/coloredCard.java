@@ -2,13 +2,13 @@ package poo_uno;
 
 public abstract class ColoredCard extends Card {
 	
-	private Color clr;
+	private String clr;
 	
-	public Color getColor() { // clr's getter
+	public String getColor() { // clr's getter
 	     return clr;
 	 }
 	
-	public void setClr(Color clr) { // clr's setter
+	public void setColor(String clr) { // clr's setter
 		this.clr = clr;
 	}
 	

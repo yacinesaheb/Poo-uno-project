@@ -1,7 +1,11 @@
 package poo_uno;
 
 public class ReverseCard extends ColoredCard {
-
+     
+	public ReverseCard (String clr) {
+		 setColor(clr);;	 
+	 }
+	
 	@Override
 	public void displayCard() {
 		// TODO Auto-generated method stub

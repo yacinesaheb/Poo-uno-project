@@ -2,22 +2,41 @@ package poo_uno;
 
 public class RegularCard extends ColoredCard {
 	
-	public enum Numero { // Set all the possible numbers
-        ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE;
-    }
+	// Set all the possible numbers
+		String[] Number = {  "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE" };
+    
 	
-	private Number nbr;
+	private String nbr;
 	
-	public Number getNbr() { // nbr's getter
+	
+	
+	public RegularCard(String clr, String nbr) {
+		this.nbr = nbr;
+		setColor(clr); ;
+	}
+	
+	
+	
+	public String getNumber() { // nbr's getter
 		return nbr;
 	}
-	public void setNbr(Number nbr) { // nbr's setter
+	
+	
+	public void setNumber(String nbr) { // nbr's setter
 		this.nbr = nbr;
 	}
 	 
 	 
 	 public void displayCard() { // Display a regular card
 		System.out.println("Color : " + getColor() + " / Number : " + getNbr());
+	}
+
+
+
+	@Override
+	public java.lang.Number getNbr() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	 
 }

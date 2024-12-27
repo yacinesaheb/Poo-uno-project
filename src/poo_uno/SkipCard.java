@@ -2,7 +2,13 @@ package poo_uno;
 
 public class SkipCard extends ColoredCard {
 
-	@Override
+	
+	
+	public SkipCard (String clr) {
+		 setColor(clr);;	 
+	 }
+	
+	
 	public void displayCard() {
 		// TODO Auto-generated method stub
 		

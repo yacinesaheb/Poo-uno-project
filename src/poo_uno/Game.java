@@ -4,16 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    //les attribues:
+	
+    // Initialization of attributes of the class.
 	private int currentplayer;
 	private String[] playersnames= new String[4];
 	private Deck deck;
 	private ArrayList<Player> players ;
 	private boolean gamedirection;
+	private Card discardPileTopCard;
 	
+	// Getters and setters of some attributes.
+	public Card getDiscardPileTopCard() { // discardPileTopCard's getter
+		return discardPileTopCard;
+	}
+
+	public void setDiscardPileTopCard(Card discardPileTopCard) { // discardPileTopCard's setter
+		this.discardPileTopCard = discardPileTopCard;
+	}
 	
-    //les methode:
-	//methode pour avoir les noms des joueurs:
+    // Methods of the class Game
+	
 	 public void collectPlayerNames() {
 	        Scanner reader = new Scanner(System.in);
 
@@ -43,6 +53,7 @@ public class Game {
 		
 		
 	}
+
 	
 	
 	

@@ -1,11 +1,11 @@
  package poo_uno;
 
-public class turn {
+public class Turn {
 	///////////// Classe pour la liste doublement chaînée circulaire
 	
 	    private Node head; // Tête de la liste
 
-	    public turn() {
+	    public void turn() {
 	        this.head = null;
 	    }
 

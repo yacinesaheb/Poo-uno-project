@@ -13,14 +13,44 @@ public class WildDrawFour extends Card {
 	}
 
 	@Override
-	public Color getColor() {
+	public String getColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number getNbr() {
+	public String getNbr() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void skip() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawTwo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void chooseColor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawFourCards() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reverse() {
+		// TODO Auto-generated method stub
+		
 	}
 }

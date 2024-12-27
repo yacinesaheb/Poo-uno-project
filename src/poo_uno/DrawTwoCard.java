@@ -1,13 +1,12 @@
 package poo_uno;
 
 public class DrawTwoCard extends ColoredCard {
-
 	
+	// DrawTwoCard class constructor 
 	 public DrawTwoCard (String clr) {
-		 setColor(clr);	 
+		 setClr(clr);	 
 	 }
-	 
-	 
+
 	@Override
 	public void displayCard() {
 		// TODO Auto-generated method stub
@@ -15,9 +14,39 @@ public class DrawTwoCard extends ColoredCard {
 	}
 
 	@Override
-	public Number getNbr() {
+	public String getNbr() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void skip() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawTwo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void chooseColor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawFourCards() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reverse() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

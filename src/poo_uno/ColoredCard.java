@@ -8,7 +8,7 @@ public abstract class ColoredCard extends Card {
 	     return clr;
 	 }
 	
-	public void setColor(String clr) { // clr's setter
+	public void setClr(String clr) { // clr's setter
 		this.clr = clr;
 	}
 	

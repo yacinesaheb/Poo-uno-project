@@ -26,29 +26,57 @@ public abstract class Player {
 	
 	// Methods of the class Player
 			
-	private void rearrangeHand(int pos,int nbrCards) { // This method rearranges the players hand after playing a card (for example when playing the 3rd card , we take the last card and put it in her place)
-		// Instructions
+	public boolean playCard(Card[] hand,int pos,int nbrCards,Card discardPileTopCard) { // POTENTIAL ERROR IN THIS FUNCTION DUE TO THE FIRST ENTRY
+		discardPileTopCard = hand[pos];
+		hand[pos] = hand[nbrCards];
+		nbrCards--;
+		return true;
 	}
 	
-	private boolean checkPlayableCards(Card[] hand, int pos, int nbrCards, Card topCard) { // This method is here to check whether there is only one playable card. It is used to allow the player to play the wildDrawFour if it returns true .
-		boolean playable = true;
+	public boolean checkPlayableCards(Card[] hand, int nbrCards, Card topCard) { // This method is here to check whether there is at least one playable card.
+		boolean playable = false; // There are no playable cards.
 		int i;
-		for (i = pos ; i < nbrCards ; i++) {
+		for (i = 0 ; i < nbrCards ; i++) {
 			if (hand[i] instanceof RegularCard) { // If the card is a regular card
 				if ( (hand[i].getColor() == topCard.getColor() ) || (hand[i].getNbr() == topCard.getNbr() ) ) { // If the card matches the topCard by color or number.
-					playable = false; // Card is not playable
+					playable = true; // There is a playable card.
 					break; // Goes out of the for loop
 				}
-			} else if ( (hand[i] instanceof SkipCard) || (hand[i] instanceof SwapCard) || (hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
-				if ( hand[i].getColor() == topCard.getColor() ) { // If the card matches the topCard by color or number.
-					playable = false; // Card is not playable
+			} else if ( (hand[i] instanceof SkipCard) || (hand[i] instanceof ReverseCard) || (hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
+				if ( hand[i].getColor() == topCard.getColor() ) { // If the card matches the topCard by color .
+					playable = true; // There is a playable card.
 					break;// Goes out of the for loop
 				}
 			} else if ( (hand[i] instanceof WildCard) ) { // If the card is a wild card 
-				playable = false; // Card is not playable
+				playable = true; // There is a playable card.
 				break; // Goes out of the for loop
 			}	
 		}
+		return playable;
+	}
+	
+	public boolean isWildFourPlayable(Card[] hand, int pos , int nbrCards, Card topCard) { // WildFourCard
+		boolean playable = true; // the card is playable
+		int i;
+		for (i = 0 ; i < nbrCards ; i++) {
+			if ( i != pos) {
+				if (hand[i] instanceof RegularCard) { // If the card is a regular card
+					if ( (hand[i].getColor() == topCard.getColor() ) || (hand[i].getNbr() == topCard.getNbr() ) ) { // If the card matches the topCard by color or number.
+						playable = false; // WildDrawFour is not playable.
+						break; // Goes out of the for loop
+					}
+				} else if ( (hand[i] instanceof SkipCard) || (hand[i] instanceof ReverseCard) || (hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
+					if ( hand[i].getColor() == topCard.getColor() ) { // If the card matches the topCard by color .
+						playable = false; // WildDrawFour is not playable.
+						break;// Goes out of the for loop
+					}
+				} else if ( (hand[i] instanceof WildCard) ) { // If the card is a wild card 
+					playable = false; // WildDrawFour is not playable.
+					break; // Goes out of the for loop
+				}	
+			}
+		}
+		
 		return playable;
 	}
 	
@@ -56,6 +84,6 @@ public abstract class Player {
 		
 	}
 	
-	public abstract void playCard(int nbrCards) ; // This method removes a card from the player's hand , rearranges the hand ,changes the value of the topCard of the discard pile , then decrements the number of cards in hand by 1.
+	public abstract int playProcess(Player player,Card[] hand,Card discardPileTopCard,int nbrCards) ; // This method removes a card from the player's hand , rearranges the hand ,changes the value of the topCard of the discard pile , then decrements the number of cards in hand by 1.
 
 }

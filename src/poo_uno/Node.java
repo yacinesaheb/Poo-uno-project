@@ -4,25 +4,25 @@ public class Node {
 
 	// Classe pour représenter un nœud
 	
-	    private String playername;
-	    private Deck deck;
+	    private Human human;
+	    private Robot robot ;
+	    
 	    Node next;      // Pointeur vers le nœud suivant
 	    Node prev;      // Pointeur vers le nœud précédent
 
 	    // Constructeur pour initialiser le nœud
-	    public Node(String playername,Deck deck) {
-	        this.playername = playername;
-	        this.deck=deck;
-	        this.next = null;
+	    public void addHuman(String playername) {
+	    	
+	    	  this.human = new Human(); // Initialize the player object
+	          this.human.setName(playername); // Now it's safe to set the name
+	          this.next = null; 
 	        this.prev = null;
 	    }
 	    
-	    public void display() {
+	    public void displayhuman() {
 	    	
-	    	System.out.println("PLAYER NAME:"+this.playername);
-			System.out.println("methode dans la classe deck:"+this.deck);//this is just for test there is a display methode for deck classe
-	    	
-	    }
+	    	System.out.println("PLAYER NAME:"+human.getName());
+				    }
 	}
 	
 

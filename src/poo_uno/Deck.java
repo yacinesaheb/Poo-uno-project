@@ -1,41 +1,37 @@
 package poo_uno;
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Deck {
 
-	// Initialize the attributes
+	
+	// Attributs
+    private ArrayList<Card> cards;      // Liste des cartes dans le deck
+    private int numberOfCards;          // Nombre actuel de cartes dans le deck
 	
 	
-    private ArrayList<Card> cards;      // List of cards of the deck
-    private int numberOfCards;          // Actual number of cards of the deck
-	
-	
-    // Constructor of the class Deck. When no argument is passed, initialize a whole deck with 108 cards.
-    
-     public Deck () { 
-    	
+    // constructor; when no argument is passed, initialize a whole deck with 108 cards
+    public Deck () {   //Ce constructeur initialise un deck complet de 108 cartes UNO.
         numberOfCards = 108;
         cards = new ArrayList<Card>(numberOfCards);
 
-        String[] colors = { "RED", "BLUE", "GREEN", "YELLOW"}; 
+        String[] colors = { "RED", "BLUE", "GREEN", "YELLOW"}; //Il définit les couleurs disponibles 
         String[] numbers = { "ZERO", "ONE", "TWO", "THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"};
-        
         // iterate through all the colors
         for (int i=0; i<4; i++) {
 
-            // Adding Zero cards
-            cards.add( i*25 , new RegularCard(colors[i], "ZERO" ) ); 
-            
-            
-            // Adding cards from 0 to 9 (without their color)
-            for (int j=1; j<19; j+=2) { 
+            // each color only has one "0"
+            cards.add(i*25, new RegularCard(colors[i], "ZERO" )); //Ajout de la carte "0"
+
+            for (int j=1; j<19; j+=2) { // Ajout des cartes numérotées (1 à 9)
                 cards.add(i*25+j , new RegularCard(colors[i], numbers[j/2]) ) ;
                 cards.add(i*25+j+1 , new RegularCard(colors[i], numbers[j/2]) );
             }
-            
-            // Adding action cards for every color 
+            // each color has some action cards
+            //Ajout des cartes d'action
             cards.add( 19+i*25, new DrawTwoCard(colors[i]) );
             cards.add( 20+i*25, new DrawTwoCard(colors[i]) );
             cards.add( 21+i*25, new ReverseCard (colors[i]) );
@@ -44,15 +40,53 @@ public class Deck {
             cards.add( 24+i*25, new SkipCard (colors[i]) );
         }
 
-        // Adding special cards
-        
-        for (int i=100; i<104; i++) {  
+        // wild cards don't have a set color
+        //Ajout des cartes spéciales
+        for (int i=100; i<104; i++) {  //Cartes Wild (Joker)
             cards.add( i, new WildCard () );
         }
-        for (int i=104; i<108; i++) { 
+        for (int i=104; i<108; i++) {  //Cartes Wild Draw 4
             cards.add( i, new WildDrawFour () );
         }
     }
+
+    public int getNumberOfCards() {
+    	return numberOfCards;
+    }
+	
+    //Crée un deck vide avec une capacité spécifique.
+    
+    public Deck(int numberOfCards) {
+        cards = new ArrayList<Card>(numberOfCards);
+        this.numberOfCards = 0;
+    }
+    
+    //Mélange les cartes du deck aléatoirement.
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }
+   
+    //Tire et retire la dernière carte du deck
+    public Card drawCard() {
+        if (numberOfCards > 0) {
+            numberOfCards--;
+            return cards.remove(cards.size() - 1);
+        }
+        return null;
+    }
+    
+    //Ajoute une carte au deck
+    public void addCard(Card card) {
+        if (cards.size() < numberOfCards) {
+            cards.add(card);
+            numberOfCards++;
+        }
+    }
+    
+    //Retourne la carte située en haut du deck sans la retirer
+    public Card getTopCard() {     
+            return cards.get(cards.size() - 1);
+    }
+	
+	
 }
-	
-	

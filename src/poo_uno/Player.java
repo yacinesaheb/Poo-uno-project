@@ -1,11 +1,13 @@
 package poo_uno;
 
-public abstract class Player {
+import java.util.ArrayList;
+
+public abstract class Player { // WE MIGHT ADD A DIFFICULTY SYSTEM TO THE BOTS IF WE HAVE TIME.
 
 	// The object's attributes
 	
 	private Card[] hand = new Card[108] ; // Player's hand (his cards)
-	private int nbrCards; // Number of cards in the player's hand
+	private int playerNbrCards; // Number of cards in the player's hand
 	private String name; // Name of the player
 	
 	// Setters and getters for out attributes
@@ -80,10 +82,21 @@ public abstract class Player {
 		return playable;
 	}
 	
-	public void drawCard(int nbr) { // Draws "nbr" cards from the Deck if there are still enough. (nbr <==> number of cards to draw)
-		
+	public boolean drawCard(Card[] hand,int nbr,int nbrCards, Deck deck) { // Draws one card from the Deck if there are still enough. (nbr <==> number of cards to draw)
+		boolean drawed = true;
+		int i;
+		for ( i = 1; i <= nbr ; i++ ) {
+			nbrCards++;
+			hand[nbrCards - 1] = deck.drawDeckCard();
+			if (hand[nbrCards - 1] == null) {
+				nbrCards--;
+				drawed = false;
+				return drawed;
+			}
+		}
+		return drawed;
 	}
 	
-	public abstract int playProcess(Player player,Card[] hand,Card discardPileTopCard,int nbrCards) ; // This method removes a card from the player's hand , rearranges the hand ,changes the value of the topCard of the discard pile , then decrements the number of cards in hand by 1.
-
+	public abstract int playProcess(Player player,Player nextPlayer,Card[] hand,Card discardPileTopCard,int playerNbrCards,Deck deck) ; // This method handles all the playing process for a player. 
+	
 }

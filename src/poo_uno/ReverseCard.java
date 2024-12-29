@@ -6,17 +6,24 @@ public class ReverseCard extends ColoredCard {
 	public ReverseCard (String clr) {
 		 setClr(clr);;	 
 	 }
-
+	
 	@Override
-	public void displayCard() {
+	public void reverse() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public String getNbr() {
+	public String displayCard() {
+		return (getColor() + "-Rev"); // It will be displayed as R-Rev for example.
+		
+	}
+
+	// Not needed methods for this class :
+	@Override
+	public int getNbr() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override
@@ -27,25 +34,18 @@ public class ReverseCard extends ColoredCard {
 
 
 	@Override
-	public void drawTwo() {
+	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck decks) {
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void chooseColor() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawFourCards() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void reverse() {
+	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}

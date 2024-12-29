@@ -6,17 +6,23 @@ public class DrawTwoCard extends ColoredCard {
 	 public DrawTwoCard (String clr) {
 		 setClr(clr);	 
 	 }
+	 
+	@Override
+	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck deck) {
+			nextPlayer.drawCard(hand, 2, playerNbrCards, deck);
+		}
 
 	@Override
-	public void displayCard() {
-		// TODO Auto-generated method stub
+	public String displayCard() {
+		return getColor() + "-D2"; // It will be displayed as R-D2 for example.
 		
 	}
 
+	// Not needed methods for this class :
 	@Override
-	public String getNbr() {
+	public int getNbr() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override
@@ -26,19 +32,13 @@ public class DrawTwoCard extends ColoredCard {
 	}
 
 	@Override
-	public void drawTwo() {
+	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void chooseColor() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawFourCards() {
+	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}

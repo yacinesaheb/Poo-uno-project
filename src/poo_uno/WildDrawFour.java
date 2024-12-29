@@ -2,26 +2,23 @@ package poo_uno;
 
 public class WildDrawFour extends Card {
 	
-	public void drawfourCards() {
-		// Instructions + usage of chooseColor
+	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
+		hand[pos].chooseColor(player,hand,playerNbrCards);
+		nextPlayer.drawCard(hand, 4, playerNbrCards, deck);
 	}
 
 	@Override
-	public void displayCard() {
-		// TODO Auto-generated method stub
+	public String displayCard() {
+		return (getColor() + "-WD4") ;
 		
 	}
 
-	@Override
-	public String getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	// Not needed methods for this class :
 
 	@Override
-	public String getNbr() {
+	public int getNbr() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override
@@ -31,19 +28,13 @@ public class WildDrawFour extends Card {
 	}
 
 	@Override
-	public void drawTwo() {
+	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void chooseColor() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawFourCards() {
+	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
 		// TODO Auto-generated method stub
 		
 	}

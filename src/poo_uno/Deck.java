@@ -8,30 +8,35 @@ import java.util.List;
 public class Deck {
 
 	
-	// Attributs
-    private ArrayList<Card> cards;      // Liste des cartes dans le deck
-    private int numberOfCards;          // Nombre actuel de cartes dans le deck
+	// Attributes of the Deck class
+	
+    private ArrayList<Card> cards;      // ArrayList of Card
+    private int numberOfCards;          // Actual number of cards in the deck
 	
 	
-    // constructor; when no argument is passed, initialize a whole deck with 108 cards
-    public Deck () {   //Ce constructeur initialise un deck complet de 108 cartes UNO.
+    // Constructor; when no argument is passed, initialize a whole deck with 108 cards
+    
+    public Deck () { 
         numberOfCards = 108;
         cards = new ArrayList<Card>(numberOfCards);
-
-        String[] colors = { "RED", "BLUE", "GREEN", "YELLOW"}; //Il définit les couleurs disponibles 
-        String[] numbers = { "ZERO", "ONE", "TWO", "THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"};
+        
+        // ALL COLORS AND NUMBERS AVAILABLE
+        final String[] colors = { "R", "B", "G", "Y"}; // We took only the initials to make the display better.
+        final int[] numbers = {0,1,2,3,4,5,6,7,8,9};
+        
         // iterate through all the colors
         for (int i=0; i<4; i++) {
 
-            // each color only has one "0"
-            cards.add(i*25, new RegularCard(colors[i], "ZERO" )); //Ajout de la carte "0"
-
-            for (int j=1; j<19; j+=2) { // Ajout des cartes numérotées (1 à 9)
+            // Adding zero cards
+            cards.add(i*25, new RegularCard(colors[i],0)); 
+            
+            // Adding numbered cards
+            for (int j=1; j<19; j+=2) { 
                 cards.add(i*25+j , new RegularCard(colors[i], numbers[j/2]) ) ;
                 cards.add(i*25+j+1 , new RegularCard(colors[i], numbers[j/2]) );
             }
-            // each color has some action cards
-            //Ajout des cartes d'action
+            
+            // Adding action cards
             cards.add( 19+i*25, new DrawTwoCard(colors[i]) );
             cards.add( 20+i*25, new DrawTwoCard(colors[i]) );
             cards.add( 21+i*25, new ReverseCard (colors[i]) );
@@ -40,12 +45,11 @@ public class Deck {
             cards.add( 24+i*25, new SkipCard (colors[i]) );
         }
 
-        // wild cards don't have a set color
-        //Ajout des cartes spéciales
-        for (int i=100; i<104; i++) {  //Cartes Wild (Joker)
+        // Adding special cards
+        for (int i=100; i<104; i++) {  
             cards.add( i, new WildCard () );
         }
-        for (int i=104; i<108; i++) {  //Cartes Wild Draw 4
+        for (int i=104; i<108; i++) {  
             cards.add( i, new WildDrawFour () );
         }
     }
@@ -54,20 +58,19 @@ public class Deck {
     	return numberOfCards;
     }
 	
-    //Crée un deck vide avec une capacité spécifique.
-    
+    // Constructor of an empty deck with a customizable size (dunno why this exists)
     public Deck(int numberOfCards) {
         cards = new ArrayList<Card>(numberOfCards);
         this.numberOfCards = 0;
     }
     
-    //Mélange les cartes du deck aléatoirement.
+    // Shuffle randomly the cards of the deck
     public void shuffle() {
         Collections.shuffle(cards);
     }
    
-    //Tire et retire la dernière carte du deck
-    public Card drawCard() {
+    // Returns the top card of the deck and removing it.
+    public Card drawDeckCard() {
         if (numberOfCards > 0) {
             numberOfCards--;
             return cards.remove(cards.size() - 1);
@@ -75,7 +78,13 @@ public class Deck {
         return null;
     }
     
-    //Ajoute une carte au deck
+
+    // Returns the top card of the deck (without removing it)
+    public Card getTopCard() {     
+            return cards.get(cards.size() - 1);
+    }
+	
+    // Adding a card to the deck (dunno why this is here neither)
     public void addCard(Card card) {
         if (cards.size() < numberOfCards) {
             cards.add(card);
@@ -83,10 +92,5 @@ public class Deck {
         }
     }
     
-    //Retourne la carte située en haut du deck sans la retirer
-    public Card getTopCard() {     
-            return cards.get(cards.size() - 1);
-    }
-	
 	
 }

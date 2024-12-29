@@ -3,50 +3,54 @@ package poo_uno;
 public class RegularCard extends ColoredCard {
 	
 	// Set all the possible numbers
-			String[] Number = {  "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE" };
+			int[] Number = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			
 	// Initialize the attributes		
-	private String nbr;
+	private int nbr;
 	
 	// Class RegularCard constructor
-	public RegularCard(String clr, String nbr) {
+	public RegularCard(String clr, int nbr) {
 		this.nbr = nbr;
-		setClr(clr); ;
+		this.setClr(clr) ;
 	}
 	
-	public String getNbr() { // nbr's getter
+	public int getNbr() { // nbr's getter
 		return nbr;
 	}
-	public void setNbr(String nbr) { // nbr's setter
+	public void setNbr(int nbr) { // nbr's setter
 		this.nbr = nbr;
 	}
 	 
 	 
-	 public void displayCard() { // Display a regular card
-		System.out.println("Color : " + getColor() + " / Number : " + getNbr());
+	 public String displayCard() { // Display a regular card
+		return getColor() + "-" + getNbr(); // It will be displayed as R-0 for example.
 	}
+	 
+	 // Not needed methods for this class :
 	@Override
 	public void skip() {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
-	public void drawTwo() {
+	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void chooseColor() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void drawFourCards() {
+	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void reverse() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawTwo(Player nextPlayer, Card[] hand, int playerNbrCards, Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}

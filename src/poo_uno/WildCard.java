@@ -1,5 +1,6 @@
 package poo_uno;
 import java.util.Scanner;
+import java.util.Random;
 
 public class WildCard extends Card {
 	
@@ -10,10 +11,10 @@ public class WildCard extends Card {
 			System.out.printf( player.getName(), " please choose the color for the next turn (Choose between R B G Y): ");
 	    	Scanner readcolor = new Scanner(System.in); // Initialize a string scanner.
 	    	color = readcolor.nextLine(); // Get the value of integer pos from the user.
-	    	readcolor.close();
-			} while (color != "R" && color != "B" && color != "Y" && color != "G" );
-			setClr(color);
-		} else if (player instanceof Robot) { // The robot searches in his hand for the color from which he has the most cards , then chooses his color to match it.
+	    	readcolor.close(); // Close the reader.
+			} while (color != "R" && color != "B" && color != "Y" && color != "G" ); // While color is different from Blue Red Green or Yellow
+			setClr(color); // Sets the card color
+		} else if (player instanceof MediumRobot) { // The medium robot searches in his hand for the color from which he has the most cards , then chooses his color to match it.
 			int nbBlue = 0,nbRed = 0,nbYellow = 0,nbGreen = 0; 
 			int i;
 			for (i = 0; i < playerNbrCards;i++) {
@@ -40,7 +41,13 @@ public class WildCard extends Card {
 			} else if (nbRed < nbGreen) { // If there are strictly more green cards then red cards.
 				color = "G";
 			}
-			setClr(color);
+			setClr(color); // Sets the card color.
+		} else if (player instanceof EasyRobot) { // The easy robot simply chooses his color randomly.
+			String[] colors = { "R", "B", "G", "Y" }; // Initialize a table to draw randomly from it.
+			Random randomcolor = new Random(); // Creating the randomizer.
+			// Get a random index between 0 and elements.length - 1
+	        int randomIndex = randomcolor.nextInt(colors.length); // Takes a random index from the table (choose a random color).
+	        setClr(colors[randomIndex]); // Sets the card color .
 		}
 	}
 

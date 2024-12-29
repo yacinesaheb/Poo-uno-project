@@ -1,7 +1,7 @@
 package poo_uno;
 
-public class Robot extends Player {
-	
+public class EasyRobot extends Player { // Robot of difficulty easy chooses the color randomly when playing the Wild card.
+
 	@SuppressWarnings("unused")
 	@Override
 	public int playProcess(Player player,Player nextPlayer,Card[] hand,Card discardPileTopCard,int playerNbrCards,Deck deck) { // For a robot , it plays the first playable card in his hand , except if it's a wildDrawFour we check before if it's the only playable card.

@@ -9,8 +9,11 @@ public class ReverseCard extends ColoredCard {
 	
 	@Override
 	public void reverse() {
-		// TODO Auto-generated method stub
-		
+		if (Game.getGamedirection() == true) {
+		Game.setGamedirection(false);
+		} else if (Game.getGamedirection() == false) {
+			Game.setGamedirection(true);
+		}
 	}
 
 	@Override

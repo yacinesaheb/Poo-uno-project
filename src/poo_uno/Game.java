@@ -12,7 +12,7 @@ public class Game {
     // Attributes
     private int currentplayer; // Tracks the current player//i think this one will go 
     private Deck deck=new Deck(); // Represents the deck of cards (implement Deck separately)
-    private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)//this one comes from playerclasse from playprosssece.
+    private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)//this one comes from player class from play process.
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
     private Card discardPileTopCard;
@@ -31,6 +31,14 @@ public class Game {
     	this.discardPileTopCard = discardPileTopCard;
     }
     
+	public static boolean getGamedirection() { // Game direction getter
+		return gamedirection; 
+	}
+
+	public static void setGamedirection(boolean gamedirection) { // Game direction setter
+		Game.gamedirection = gamedirection; 
+	}
+
     
     
     
@@ -61,14 +69,14 @@ public class Game {
                  this.turn.addHumain(this.playersnames);
             }else 
             {    
-            	this.turn.addRobot();
+            	this.turn.addMediumRobot();
             }
             i++;
         }
 
       
     }
-    // to parcour the list .
+    // To go over the list .
     public void next() {
     	Game.tracker=turn.next(gamedirection, tracker);            	
     }
@@ -79,7 +87,7 @@ public class Game {
     	  for (int i = 0; i < totalCardsToDistribute; i++) {
     		
     			
-    		Game.tracker.displayplayers();//i use display to test but affter i will change it to draw card when the method is ready	
+    		Game.tracker.displayplayers();// I use display to test but after i will change it to draw card when the method is ready	
     		next();	
     			
     			    		    		    		

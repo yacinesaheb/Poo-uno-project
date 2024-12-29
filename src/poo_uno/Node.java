@@ -5,7 +5,7 @@ public class Node {
 
     // Attributes
     private Human human; // Stores a Human player (null if this node represents a Robot)
-    private Robot robot; // Stores a Robot player (null if this node represents a Human)
+    private MediumRobot robot; // Stores a Robot player (null if this node represents a Human)
 
     Node next; // Pointer to the next node in the list
     Node prev; // Pointer to the previous node in the list
@@ -22,7 +22,7 @@ public class Node {
         if ("human".equalsIgnoreCase(playerType)) {
             addHuman(playerName);
         } else if ("robot".equalsIgnoreCase(playerType)) {
-            addRobot();
+            addMediumRobot();
         } else {
             System.out.println("Invalid player type. Use 'human' or 'robot'.");
         }
@@ -37,8 +37,8 @@ public class Node {
     }
 
     // Initializes the node for a robot player. (You can expand the Robot class to include more attributes if needed.)
-    public void addRobot() {
-        this.robot = new Robot(); // Create a new Robot object
+    public void addMediumRobot() {
+        this.robot = new MediumRobot(); // Create a new Medium Robot object
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }

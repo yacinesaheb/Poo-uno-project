@@ -45,9 +45,9 @@ public class Turn {
     
      // Adds a new robot player to the list.
     
-    public void addRobot() {
+    public void addMediumRobot() {
         Node newNode = new Node();
-        newNode.addRobot(); // Initialize the node with the robot player
+        newNode.addMediumRobot(); // Initialize the node with the medium robot player
         if (head == null) {
             // If the list is empty
             head = newNode;

@@ -58,11 +58,7 @@ public class Deck {
     	return numberOfCards;
     }
 	
-    // Constructor of an empty deck with a customizable size (dunno why this exists)
-    public Deck(int numberOfCards) {
-        cards = new ArrayList<Card>(numberOfCards);
-        this.numberOfCards = 0;
-    }
+    
     
     // Shuffle randomly the cards of the deck
     public void shuffle() {
@@ -92,5 +88,11 @@ public class Deck {
         }
     }
     
+    public void displayDeck() {
+        System.out.println("Deck contains " + cards.size() + " cards:");
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println((i + 1) + ": " + cards.get(i)); // Assumes Card class has a meaningful `toString` method
+        }
+    }
 	
 }

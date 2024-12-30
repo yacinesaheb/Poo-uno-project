@@ -11,7 +11,7 @@ public class Game {
 
     // Attributes
     private int currentplayer; // Tracks the current player//i think this one will go 
-    private Deck deck=new Deck(); // Represents the deck of cards (implement Deck separately)
+    private Deck deck; // Represents the deck of cards (implement Deck separately)
     private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)//this one comes from player class from play process.
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
@@ -52,13 +52,13 @@ public class Game {
     	
     	
     	int i = 0;
-        // Add human players to the turn
+        // Add humans and robots players to the turn
         while (i < this.numberofplayers) {
         	int humanorrobot;
         	do {
         	  System.out.println("Is player"+(i+1)+ " a human or a robot ?");
         	  System.out.println("1-human      2-robot");
-              humanorrobot = reader.nextInt(); // Read the number of players
+              humanorrobot = reader.nextInt(); // Read the type of players
               reader.nextLine();
         	}while(humanorrobot !=1 && humanorrobot!=2 );
         	
@@ -68,8 +68,13 @@ public class Game {
         		 this.playersnames = reader.nextLine();
                  this.turn.addHumain(this.playersnames);
             }else 
-            {    
-            	this.turn.addMediumRobot();
+            {   int easyormedium;
+        	    do {
+            	System.out.println("What difficulty  do you want it ?");
+            	System.out.println("1-Easy      2-Medium");
+            	easyormedium = reader.nextInt();
+        	    }while(easyormedium !=1 && easyormedium!=2 );// Read the difficulty 
+        	    if(easyormedium==2) {this.turn.addMediumRobot();}else {this.turn.addEasyRobot();}//add the right robot
             }
             i++;
         }
@@ -81,17 +86,17 @@ public class Game {
     	Game.tracker=turn.next(gamedirection, tracker);            	
     }
     //distribution.
+  //distribution.
     public void distribution () {
     	
     	int totalCardsToDistribute = 7 * numberofplayers;
     	  for (int i = 0; i < totalCardsToDistribute; i++) {
     		
     			
-    		Game.tracker.displayplayers();// I use display to test but after i will change it to draw card when the method is ready	
-    		next();	
-    			
-    			    		    		    		
-    	}    	    	                                      	
+            tracker.distribution(this.deck);
+    		next();			    		    		    		
+    	} 
+    	  
     	
     }
     // Main method to execute the game setup and display the player list.
@@ -99,15 +104,19 @@ public class Game {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in); // Create the Scanner here
         Game game = new Game();
+        game.deck=new Deck();
         
         // Game setup
         game.fillTurn(reader); // Populate the Turn linked list with players
         Game.tracker=game.turn.gethead();//give the head to the tracker 
+        game.deck.shuffle();
         //test distribution
         game.distribution();
         // Display the players in turn order
         game.turn.display();
-     
+        tracker.displayHumanhand();
+        game.next();
+        tracker.displayHumanhand();
         reader.close(); // Close the Scanner at the end
         
         

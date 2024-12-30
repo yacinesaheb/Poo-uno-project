@@ -4,7 +4,7 @@ public class WildDrawFour extends Card {
 	
 	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
 		hand[pos].chooseColor(player,hand,playerNbrCards);
-		nextPlayer.drawCard(hand, 4, playerNbrCards, deck);
+		nextPlayer.drawCard( 4,  deck);
 	}
 
 	@Override

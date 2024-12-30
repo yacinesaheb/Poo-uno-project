@@ -63,6 +63,24 @@ public class Turn {
         }
     }
     
+    public void addEasyRobot() {
+        Node newNode = new Node();
+        newNode.addEasyRobot(); // Initialize the node with the medium robot player
+        if (head == null) {
+            // If the list is empty
+            head = newNode;
+            head.next = head; // Circular link
+            head.prev = head;
+        } else {
+            // Add the new node at the end of the list
+            Node tail = head.prev;
+            tail.next = newNode;
+            newNode.prev = tail;
+            newNode.next = head;
+            head.prev = newNode;
+        }
+    }
+    
     //next method
     public Node next(boolean gamedirection, Node tracker) {
         if (gamedirection) {

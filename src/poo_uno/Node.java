@@ -5,7 +5,8 @@ public class Node {
 
     // Attributes
     private Human human; // Stores a Human player (null if this node represents a Robot)
-    private MediumRobot robot; // Stores a Robot player (null if this node represents a Human)
+    private MediumRobot mrobot; // Stores a Robot player (null if this node represents a Human)
+    private EasyRobot erobot;
 
     Node next; // Pointer to the next node in the list
     Node prev; // Pointer to the previous node in the list
@@ -13,11 +14,12 @@ public class Node {
     // Methods
     public Node() {
         this.human = null;
-        this.robot = null;
+        this.mrobot = null;
+        this.erobot = null;
         this.next = null;
         this.prev = null;
     }
-    // Constructor
+    // Constructor//note sure i need it 
     public void setNode(String playerType, String playerName) {
         if ("human".equalsIgnoreCase(playerType)) {
             addHuman(playerName);
@@ -31,14 +33,20 @@ public class Node {
     public void addHuman(String playerName) {
         this.human = new Human(); // Create a new Human object
         this.human.setName(playerName); // Assign the player's name
-        this.human.setHand(null);
+        
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }
 
     // Initializes the node for a robot player. (You can expand the Robot class to include more attributes if needed.)
     public void addMediumRobot() {
-        this.robot = new MediumRobot(); // Create a new Medium Robot object
+        this.mrobot = new MediumRobot(); // Create a new Medium Robot object
+        this.next = null; // Initialize pointers to null
+        this.prev = null;
+    }
+
+    public void addEasyRobot() {
+        this.erobot = new EasyRobot(); // Create a new Medium Robot object
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }
@@ -48,12 +56,51 @@ public class Node {
         if (human != null) {
             // Display the human player's name
             System.out.println("PLAYER NAME: " + human.getName());
-        } else if (robot != null) {
+        } else if (mrobot != null) {
             // Indicate that this node represents a robot
-            System.out.println("ROBOT");
-        } else {
+            System.out.println("ROBOT (MEDIUM)");
+        }else if (erobot != null) {
+            // Indicate that this node represents a robot
+            System.out.println("ROBOT(EASY)");
+        }  
+        else {
             // Indicate that the node is uninitialized
             System.out.println("NODE IS UNINITIALIZED");
         }
     }
+    public void displayHumanhand() {
+        if (human != null) {
+            // Display the human hand
+            this.human.displayHand();
+        }}
+    //method to draw
+    public void distribution (Deck deck) {
+    	 if (human != null) {
+             this.human.drawCard( 1,  deck);
+         } else if (mrobot != null) {
+             // Indicate that this node represents a robot
+        	 this.mrobot.drawCard( 1,  deck);
+         }else if (erobot != null) {
+             // Indicate that this node represents a robot
+        	 this.erobot.drawCard( 1,  deck);
+         }  
+         else {
+             // Indicate that the node is uninitialized
+             System.out.println("NODE IS UNINITIALIZED");
+         }
+    	
+    	
+    	
+    	
+    	
+    	
+    }
+
+
+
+
+
+
+
+
 }

@@ -9,7 +9,7 @@ public class DrawTwoCard extends ColoredCard {
 	 
 	@Override
 	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck deck) {
-			nextPlayer.drawCard(hand, 2, playerNbrCards, deck);
+			nextPlayer.drawCard( 2,  deck);
 		}
 
 	@Override

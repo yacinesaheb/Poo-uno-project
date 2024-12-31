@@ -8,14 +8,53 @@ import java.util.Scanner;
 		public Human() {
 	        super(); // Calls the Player constructor to initialize the hand
 	    }
-	
+		
 	@Override
-	public int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
+	public int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck, Boolean firstPlayedCard) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
 			
 			int pos; // Initializing the variable that will determine which card the player wants to play
 			boolean played = false; // Check if the card has been successfully played to go out of the loop.
 			
-			if (checkPlayableCards(discardPileTopCard) == true ) {
+			if ( firstPlayedCard == true ) { // If this is the first ever card played in the game
+				
+				firstPlayedCard = false; // It's not the first played card anymore after the next player.
+				
+				do {
+				// Asking the player to choose a card from his deck to play
+			    do {
+			    	System.out.printf( player.getName(), " please choose a card to play from your deck (Choose a number from 1 to n such as n): ");
+			    	Scanner readpos = new Scanner(System.in); // Initialize an integer scanner.
+			    	pos = readpos.nextInt(); // Get the value of integer pos from the user.
+			    	readpos.close();
+			    }
+			    while ( ( pos > 0 ) && ( pos <= player.getNbrCards()) ); // Condition to get a correct position
+			    
+			    // Determining the card played and play it.
+				if (player.getHand()[pos] instanceof RegularCard) { // If the card is a regular card
+					played = playCard( pos ,  discardPileTopCard);
+					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+				} else if (player.getHand()[pos] instanceof SkipCard) {
+					player.getHand()[pos].skip(nextPlayer);
+					played = playCard( pos ,  discardPileTopCard);	
+					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+				} else if (player.getHand()[pos] instanceof ReverseCard) {
+					player.getHand()[pos].reverse();
+					played = playCard( pos , discardPileTopCard);
+					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+				} else if (player.getHand()[pos] instanceof DrawTwoCard) {
+					player.getHand()[pos].drawTwo(nextPlayer,deck);
+					played = playCard( pos , discardPileTopCard);
+					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+				} else if (player.getHand()[pos] instanceof WildCard) {
+					player.getHand()[pos].chooseColor(player);
+					played = playCard( pos ,  discardPileTopCard);
+					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+				} else if ( (player.getHand()[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
+							System.out.println(player.getName() + ". You can't play a wild draw four card as a first card ! ");
+					}
+			    } while (played == false); // Repeat the playing process while the player hasn't played yet. We don't need to verify if he can play a card because it's the first played card of the game.
+			
+			} else if (checkPlayableCards(discardPileTopCard) == true ) {
 			do {
 				if ( player.getSkip() == true ) {
 					System.out.println(player.getName() + " has to skip his turn because the previous player played a skip card !");

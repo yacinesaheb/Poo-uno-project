@@ -116,5 +116,5 @@ public abstract class Player {
 	}
 
 	
-	public abstract int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck) ; // This method handles all the playing process for a player. 
+	public abstract int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck, Boolean firstPlayedCard) ; // This method handles all the playing process for a player. 
 }

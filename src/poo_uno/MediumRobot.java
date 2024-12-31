@@ -6,12 +6,43 @@ public class MediumRobot extends Player { // Robot of difficulty medium plays th
 	    }
 	@SuppressWarnings("unused")
 	@Override
-	public int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck) { // For a robot , it plays the first playable card in his hand , except if it's a wildDrawFour we check before if it's the only playable card.
+public int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck, Boolean firstPlayedCard) { // For a robot , it plays the first playable card in his hand , except if it's a wildDrawFour we check before if it's the only playable card.
 		
 		int pos = 0; // Initializing the variable that will determine which card the player wants to play
 		boolean played = false; // Check if the card has been successfully played to go out of the loop.
 		
-		if ( checkPlayableCards(discardPileTopCard ) == true) { // There is at least one playable card in the hand of the player (including wildDrawFour).
+		if ( firstPlayedCard == true ) { // If this is the first ever card played in the game
+			
+			firstPlayedCard = false; // It's not the first played card anymore after the next player.
+		
+		do {
+		    // Determining the card played and play it.
+			if (player.getHand()[pos] instanceof RegularCard) { // If the card is a regular card
+				played = playCard( pos ,  discardPileTopCard);
+				System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+			} else if (player.getHand()[pos] instanceof SkipCard) {
+				player.getHand()[pos].skip(nextPlayer);
+				played = playCard( pos ,  discardPileTopCard);	
+				System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+			} else if (player.getHand()[pos] instanceof ReverseCard) {
+				player.getHand()[pos].reverse();
+				played = playCard( pos , discardPileTopCard);
+				System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+			} else if (player.getHand()[pos] instanceof DrawTwoCard) {
+				player.getHand()[pos].drawTwo(nextPlayer,deck);
+				played = playCard( pos , discardPileTopCard);
+				System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+			} else if (player.getHand()[pos] instanceof WildCard) {
+				player.getHand()[pos].chooseColor(player);
+				played = playCard(pos,discardPileTopCard);
+				System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
+			} else if ( (player.getHand()[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
+						System.out.println(player.getName() + ". You can't play a wild draw four card as a first card ! ");
+				}
+			pos++;
+		    } while (played == false); // Repeat the playing process while the player hasn't played yet. We don't need to verify if he can play a card because it's the first played card of the game.
+		
+		} else if ( checkPlayableCards(discardPileTopCard ) == true) { // There is at least one playable card in the hand of the player (including wildDrawFour).
 			if ( player.getSkip() == true ) {
 				System.out.println(player.getName() + " has to skip his turn because the previous player played a skip card !");
 				played = true;
@@ -70,5 +101,4 @@ public class MediumRobot extends Player { // Robot of difficulty medium plays th
 		}
 		return player.getNbrCards(); // To make easier to check if the player won or not in the Game class.
 	}
-
-}
+}	

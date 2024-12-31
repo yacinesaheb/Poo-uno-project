@@ -2,15 +2,17 @@ package poo_uno;
 
 import java.util.ArrayList;
 
-public abstract class Player { // WE MIGHT ADD A DIFFICULTY SYSTEM TO THE BOTS IF WE HAVE TIME.
+public abstract class Player { 
 
 	// The object's attributes
 	
 	private Card[] hand = new Card[108] ; // Player's hand (his cards)
 	private int NbrCards=0; // Number of cards in the player's hand
 	private String name; // Name of the player
+	private boolean skip = false; // To apply the skip card on the player.
 	
 	// Setters and getters for out attributes
+	
 	public Player() {
         this.hand = new Card[108]; // Initialize the hand array
     }
@@ -33,6 +35,14 @@ public abstract class Player { // WE MIGHT ADD A DIFFICULTY SYSTEM TO THE BOTS I
 	public void setName(String name) { // Name's setter
 		this.name = name;
 	}	
+	
+	public boolean getSkip() { // Skip's getter
+		return skip;
+	}
+	public void setSkip(boolean skip) { // Skip's setter.
+		this.skip = skip;
+	}
+	
 	
 	// Methods of the class Player
 			
@@ -104,16 +114,7 @@ public abstract class Player { // WE MIGHT ADD A DIFFICULTY SYSTEM TO THE BOTS I
 		}
 		return drawed;
 	}
-	public void displayHand() {
-	    System.out.println("Player " + name + "'s hand (" + NbrCards + " cards):");
-	    int i = 0;
-	    while( i < this.NbrCards ) {
-	    	   System.out.print(this.hand[i].displayCard()+"/");// Assumes Card class has a meaningful `toString` method
-	    	    i++;
-	    }
-	    System.out.println("");
-	}
+
 	
-	public abstract int playProcess(Player player,Player nextPlayer,Card[] hand,Card discardPileTopCard,int playerNbrCards,Deck deck) ; // This method handles all the playing process for a player. 
-	
+	public abstract int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck) ; // This method handles all the playing process for a player. 
 }

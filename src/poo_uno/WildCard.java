@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class WildCard extends Card {
 	
-	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
+	public void chooseColor(Player player) {
 			String color;
 		if (player instanceof Human) {
 			do {
@@ -17,8 +17,8 @@ public class WildCard extends Card {
 		} else if (player instanceof MediumRobot) { // The medium robot searches in his hand for the color from which he has the most cards , then chooses his color to match it.
 			int nbBlue = 0,nbRed = 0,nbYellow = 0,nbGreen = 0; 
 			int i;
-			for (i = 0; i < playerNbrCards;i++) {
-				 switch (hand[i].getColor()) { // Check for the color of the "i"th card.
+			for (i = 0; i < player.getNbrCards();i++) {
+				 switch (player.getHand()[i].getColor()) { // Check for the color of the "i"th card.
 				 	case "R":
 				 		nbRed++;
 				 		break;
@@ -67,19 +67,19 @@ public class WildCard extends Card {
 	}
 
 	@Override
-	public void skip() {
+	public void skip(Player nextPlayer) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck deck) {
+	public void drawTwo(Player nextPlayer,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,19 +3,25 @@ import java.util.Scanner;
 
 
 	public class Human extends Player { 
+		
+		// Human's constructor.
 		public Human() {
 	        super(); // Calls the Player constructor to initialize the hand
 	    }
 	
 	@Override
-	
-	public int playProcess(Player player,Player nextPlayer,Card[] hand,Card discardPileTopCard,int playerNbrCards,Deck deck) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
+	public int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
 			
 			int pos; // Initializing the variable that will determine which card the player wants to play
 			boolean played = false; // Check if the card has been successfully played to go out of the loop.
 			
-			if (checkPlayableCards(  discardPileTopCard ) == true ) {
+			if (checkPlayableCards(discardPileTopCard) == true ) {
 			do {
+				if ( player.getSkip() == true ) {
+					System.out.println(player.getName() + " has to skip his turn because the previous player played a skip card !");
+					played = true;
+					player.setSkip(false);
+				} else {
 				
 			// Asking the player to choose a card from his deck to play
 		    do {
@@ -24,46 +30,47 @@ import java.util.Scanner;
 		    	pos = readpos.nextInt(); // Get the value of integer pos from the user.
 		    	readpos.close();
 		    }
-		    while ( ( pos > 0 ) && ( pos <= playerNbrCards) ); // Condition to get a correct position
+		    while ( ( pos > 0 ) && ( pos <= player.getNbrCards()) ); // Condition to get a correct position
 		    
 		    // Determining the card played and play it.
-			if (hand[pos] instanceof RegularCard) { // If the card is a regular card
-				if ( (hand[pos].getColor() == discardPileTopCard.getColor() ) || (hand[pos].getNbr() == discardPileTopCard.getNbr() ) ) { // If the card matches the discardPileTopCard by color or number.
+			if (player.getHand()[pos] instanceof RegularCard) { // If the card is a regular card
+				if ( (player.getHand()[pos].getColor() == discardPileTopCard.getColor() ) || (player.getHand()[pos].getNbr() == discardPileTopCard.getNbr() ) ) { // If the card matches the discardPileTopCard by color or number.
 					played = playCard( pos ,  discardPileTopCard);
 					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
 				}
-			} else if (hand[pos] instanceof SkipCard) {
-				if ( hand[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
-					hand[pos].skip();
+			} else if (player.getHand()[pos] instanceof SkipCard) {
+				if ( player.getHand()[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
+					player.getHand()[pos].skip(nextPlayer);
 					played = playCard( pos ,  discardPileTopCard);	
 					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
 				}
-			} else if (hand[pos] instanceof ReverseCard) {
-				if ( hand[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
-					hand[pos].reverse();
+			} else if (player.getHand()[pos] instanceof ReverseCard) {
+				if ( player.getHand()[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
+					player.getHand()[pos].reverse();
 					played = playCard( pos , discardPileTopCard);
 					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
 				} 
-			} else if (hand[pos] instanceof DrawTwoCard) {
-				if ( hand[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
-					hand[pos].drawTwo(nextPlayer,hand,playerNbrCards,deck);
+			} else if (player.getHand()[pos] instanceof DrawTwoCard) {
+				if ( player.getHand()[pos].getColor() == discardPileTopCard.getColor() ) { // If the card matches the discardPileTopCard by color
+					player.getHand()[pos].drawTwo(nextPlayer,deck);
 					played = playCard( pos , discardPileTopCard);
 					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
 				}
-			} else if (hand[pos] instanceof WildCard) {
-					hand[pos].chooseColor(player,hand,playerNbrCards);
+			} else if (player.getHand()[pos] instanceof WildCard) {
+				player.getHand()[pos].chooseColor(player);
 					played = playCard( pos ,  discardPileTopCard);
 					System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard());
 
-			} else if ( (hand[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
+			} else if ( (player.getHand()[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
 					if ( isWildFourPlayable(pos,discardPileTopCard) == true ) {
-						hand[pos].drawFourCards(player , nextPlayer , hand , pos , playerNbrCards , deck);
+						player.getHand()[pos].drawFourCards(player , nextPlayer , pos ,  deck);
 						played = playCard( pos ,  discardPileTopCard);
 						System.out.println(player.getName() + " just played " + discardPileTopCard.displayCard() + ". " + nextPlayer.getName() +  " has been given 4 cards, and the new color is " + discardPileTopCard.getColor());
 					}
-			  }	
+			    }
 			}
-			while (played = false);
+		} while (played = false); // Repeat the playing process while the player hasn't played yet. This here is to make the player choose a playable card (we've verified before that there is at least one playable card is his hand with the if statement in line 18)
+			
 		} else {
 			boolean drawed = drawCard(1,deck);
 			if (drawed == true) {
@@ -73,7 +80,17 @@ import java.util.Scanner;
 			}
 		}
 			
-		return playerNbrCards; // To make easier to check if the player won or not in the Game class.
+		return player.getNbrCards(); // To make easier to check if the player won or not in the Game class.
+	}
+	
+	public void displayHand() {
+	    System.out.println("Player " + getName() + "'s hand (" + getNbrCards() + " cards):");
+	    int i = 0;
+	    while( i < this.getNbrCards() ) {
+	    	   System.out.print(this.getHand()[i].displayCard()+"/");// Assumes Card class has a meaningful `toString` method
+	    	    i++;
+	    }
+	    System.out.println("");
 	}
 
 }

@@ -8,8 +8,8 @@ public class DrawTwoCard extends ColoredCard {
 	 }
 	 
 	@Override
-	public void drawTwo(Player nextPlayer,Card[] hand,int playerNbrCards,Deck deck) {
-			nextPlayer.drawCard( 2,  deck);
+	public void drawTwo(Player nextPlayer,Deck deck) {
+			nextPlayer.drawCard(2,deck);
 		}
 
 	@Override
@@ -26,19 +26,19 @@ public class DrawTwoCard extends ColoredCard {
 	}
 
 	@Override
-	public void skip() {
+	public void skip(Player nextPlayer) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void chooseColor(Player player,Card[] hand,int playerNbrCards) {
+	public void chooseColor(Player player) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,Card[] hand,int pos,int playerNbrCards,Deck deck) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -117,6 +117,9 @@ public class Game {
         tracker.displayHumanhand();
         game.next();
         tracker.displayHumanhand();
+        game.next();
+        tracker.displayHumanhand();
+
         reader.close(); // Close the Scanner at the end
         
         

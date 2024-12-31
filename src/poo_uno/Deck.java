@@ -55,7 +55,7 @@ public class Deck {
     }
 
     public int getNumberOfCards() {
-    	return numberOfCards;
+    	return this.numberOfCards;
     }
 	
     
@@ -67,11 +67,10 @@ public class Deck {
    
     // Returns the top card of the deck and removing it.
     public Card drawDeckCard() {
-        if (numberOfCards > 0) {
-            numberOfCards--;
-            return cards.remove(cards.size() - 1);
-        }
-        return null;
+        
+        	this.numberOfCards--;
+            return this.cards.remove(cards.size() - 1);
+       
     }
     
 

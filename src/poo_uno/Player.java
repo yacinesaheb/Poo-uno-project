@@ -106,9 +106,12 @@ public abstract class Player { // WE MIGHT ADD A DIFFICULTY SYSTEM TO THE BOTS I
 	}
 	public void displayHand() {
 	    System.out.println("Player " + name + "'s hand (" + NbrCards + " cards):");
-	    for (int i = 0; i < NbrCards; i++) {
-	    	  ya kho le mem System.out.print(this.hand[i].displayCard()+"/");// Assumes Card class has a meaningful `toString` method
+	    int i = 0;
+	    while( i < this.NbrCards ) {
+	    	   System.out.print(this.hand[i].displayCard()+"/");// Assumes Card class has a meaningful `toString` method
+	    	    i++;
 	    }
+	    System.out.println("");
 	}
 	
 	public abstract int playProcess(Player player,Player nextPlayer,Card[] hand,Card discardPileTopCard,int playerNbrCards,Deck deck) ; // This method handles all the playing process for a player. 

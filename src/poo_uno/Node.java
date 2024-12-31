@@ -72,7 +72,10 @@ public class Node {
         if (human != null) {
             // Display the human hand
             this.human.displayHand();
-        }}
+        }
+       }
+    
+    
     //method to draw
     public void distribution (Deck deck) {
     	 if (human != null) {

@@ -109,28 +109,6 @@ public class Turn {
     }
 
    
-     // Reverses the direction of the list.
-     
-    public void reverse() {
-        if (head == null) return; // If the list is empty, do nothing
-
-        Node current = head;
-        Node temp = null;
-
-        do {
-            // Swap the `next` and `prev` pointers
-            temp = current.next;
-            current.next = current.prev;
-            current.prev = temp;
-
-            // Move to the next node in the original list
-            current = temp;
-        } while (current != head);
-
-        // Update the head to reflect the new direction
-        head = head.prev;
-    }
-
     
     // Clears the list and releases all memory.
     // Sets all nodes' `next` and `prev` pointers to `null` and sets the head to `null`.

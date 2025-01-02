@@ -1,6 +1,7 @@
 package poo_uno;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Player { 
 
@@ -101,36 +102,28 @@ public abstract class Player {
 		return playable;
 	}
 	
-	public void drawCard(int nbr,Pile deck, Pile discardPile) { // Draws "nbr" card from the Deck if there are still enough. (nbr <==> number of cards to draw)
-		int i;
-		for ( i = 1; i <= nbr ; i++ ) {
-			if (deck.getNumberOfCards() == 0) {
-				
-				System.out.println("There are no more cards in the draw pile. We will now take all the previous played cards except the last one, shuffle it , and use it as a draw pile.");
-				
-				// Takes the cards from the discardPile except the top one and shuffle.
-				deck.setNumberOfCards(discardPile.getCards().size() - 2);
-				Card dpTopCard = discardPile.drawPileCard(); // Saving the discard pile top card in dpTopCard and removing it from the discard Pile array.
-				deck.setCards(discardPile.getCards()); // Copy content of discardPile in deck except the top card.
-				deck.shuffle(); // Shuffles the deck.
-				discardPile.resetPile(); // Resets the discard pile.
-				discardPile.addCard(dpTopCard); // Re adds the Top card to the discard pile.
-				
-				// Draw mechanic :
-				this.NbrCards++;
-				this.hand[NbrCards - 1] = deck.drawPileCard();
-				
-			} else {
-				
-			// Draw mechanic :	
-			this.NbrCards++;
-			this.hand[NbrCards - 1] = deck.drawPileCard();
-			
-			
-			}
-		}
-	}
+	public void drawCard(int nbr, Pile deck, Pile discardPile) {
+	    int i;
+	    for (i = 1; i <= nbr; i++) {
+	        if (deck.getNumberOfCards() == 0) {
+	            System.out.println("There are no more cards in the draw pile. We will now take all the previous played cards except the last one, shuffle it, and use it as a draw pile.");
+	            deck.setNumberOfCards(discardPile.getCards().size() - 2);
+	            Card dpTopCard = discardPile.drawPileCard(); // Saving the discard pile top card in dpTopCard and removing it from the discard Pile array.
+	            deck.setCards(discardPile.getCards()); // Copy content of discardPile in deck except the top card.
+	            deck.shuffle(); // Shuffles the deck.
+	            discardPile.resetPile(); // Resets the discard pile.
+	            discardPile.addCard(dpTopCard); // Re-adds the top card to the discard pile.
 
+	            // Draw mechanic:
+	            this.NbrCards++;
+	            this.hand[NbrCards - 1] = deck.drawPileCard();
+	        } else {
+	            // Draw mechanic:
+	            this.NbrCards++;
+	            this.hand[NbrCards - 1] = deck.drawPileCard();
+	        }
+	    }
+	}
 	
-	public abstract int playProcess(Player player,Player nextPlayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers) ; // This method handles all the playing process for a player. 
+	public abstract int playProcess(Player nextPlayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers,        Scanner reader) ; // This method handles all the playing process for a player. 
 }

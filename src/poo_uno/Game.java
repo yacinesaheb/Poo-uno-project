@@ -16,7 +16,7 @@ public class Game {
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
     private Pile discardPile;
-
+    private static boolean firstPlayedCard = true;
 
     // Attributes for players
     private int numberofplayers; // Total number of players
@@ -102,27 +102,27 @@ public class Game {
     // Main method to execute the game setup and display the player list.
      
     public static void main(String[] args) {
+    	//init variable 
         Scanner reader = new Scanner(System.in); // Create the Scanner here
         Game game = new Game();
         game.deck=new Pile("Deck");
+        game.discardPile  =new Pile("Discard Pile");
         
         // Game setup
         game.fillTurn(reader); // Populate the Turn linked list with players
         Game.tracker=game.turn.gethead();//give the head to the tracker 
         game.deck.shuffle();
-        //test distribution
         game.distribution();
-        // Display the players in turn order
-        game.turn.display();
-        tracker.displayHumanhand();
-        game.next();
-        tracker.displayHumanhand();
-        game.next();
-        tracker.displayHumanhand();
-
-        reader.close(); // Close the Scanner at the end
         
         
+        // game processe 
+        int i =0;
         
+        while(i < 3 ) {//condition to break the game//
+        Game.tracker.displayHumanhand();
+        Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,firstPlayedCard,game.numberofplayers,reader);
+        game.next();        	
+        }
+        reader.close(); // Close the Scanner at the end        
     }
 }

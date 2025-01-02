@@ -1,6 +1,8 @@
 package poo_uno;
 
- //Represents a node in a doubly linked list.Each node can store either a human player or a robot player.
+import java.util.Scanner;
+
+//Represents a node in a doubly linked list.Each node can store either a human player or a robot player.
 public class Node {
 
     // Attributes
@@ -20,6 +22,22 @@ public class Node {
         this.prev = null;
     }
     // Constructor//note sure i need it 
+    public Player getnext() {
+    	  if (human != null) {
+    		  return human;
+              
+          } else if (mrobot != null) {
+            return mrobot;
+          }else if (erobot != null) {
+        	  return erobot; 
+          }  
+          else {
+              // Indicate that the node is uninitialized
+              System.out.println("NODE IS UNINITIALIZED");
+          }
+		return null;
+        
+    }
     public void setNode(String playerType, String playerName) {
         if ("human".equalsIgnoreCase(playerType)) {
             addHuman(playerName);
@@ -100,7 +118,26 @@ public class Node {
     }
 
 
-
+    public int playProcess(Player nextplayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers,        Scanner reader){
+    	int temp=0;
+		if (human != null) {
+           return temp=human.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
+        } else if (mrobot != null) {
+            // Indicate that this node represents a robot
+        	return temp=mrobot.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
+        }else if (erobot != null) {
+            // Indicate that this node represents a robot
+        	return temp=erobot.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
+        }  
+        else {
+            // Indicate that the node is uninitialized
+            System.out.println("NODE IS UNINITIALIZED");
+        }
+		return temp;
+		
+		
+		
+	}
 
 
 

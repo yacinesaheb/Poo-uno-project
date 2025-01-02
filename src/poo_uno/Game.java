@@ -11,11 +11,11 @@ public class Game {
 
     // Attributes
     private int currentplayer; // Tracks the current player//i think this one will go 
-    private Deck deck; // Represents the deck of cards (implement Deck separately)
+    private Pile deck; // Represents the deck of cards (implement Deck separately)
     private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)//this one comes from player class from play process.
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
-    private Card discardPileTopCard;
+    private Pile discardPile;
 
 
     // Attributes for players
@@ -23,12 +23,12 @@ public class Game {
     private String playersnames; // Array to store player names
 
     // Getters and setters of some attributes.
-    public Card getDiscardPileTopCard() { // discardPileTopCard's getter
-    	return discardPileTopCard;
+    public Pile getDiscardPile() { // discardPileTopCard's getter
+    	return discardPile;
     }
     
-    public void setDiscardPileTopCard(Card discardPileTopCard) { // discardPileTopCard's setter
-    	this.discardPileTopCard = discardPileTopCard;
+    public void setDiscardPile(Pile discardPile) { // discardPileTopCard's setter
+    	this.discardPile = discardPile;
     }
     
 	public static boolean getGamedirection() { // Game direction getter
@@ -93,7 +93,7 @@ public class Game {
     	  for (int i = 0; i < totalCardsToDistribute; i++) {
     		
     			
-            tracker.distribution(this.deck);
+            tracker.distribution(this.deck,this.discardPile);
     		next();			    		    		    		
     	} 
     	  
@@ -104,7 +104,7 @@ public class Game {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in); // Create the Scanner here
         Game game = new Game();
-        game.deck=new Deck();
+        game.deck=new Pile("Deck");
         
         // Game setup
         game.fillTurn(reader); // Populate the Turn linked list with players

@@ -46,24 +46,25 @@ public abstract class Player {
 	
 	// Methods of the class Player
 			
-	public boolean playCard(int pos,Card discardPileTopCard) { // POTENTIAL ERROR IN THIS FUNCTION DUE TO THE FIRST ENTRY//i dont need to give it to you you have it so use it directly
-		discardPileTopCard = this.hand[pos];
-		this.hand[pos] = this.hand[this.NbrCards];
-		this.NbrCards--;
+	public boolean playCard(int pos,Pile discardPile) { 
+		discardPile.getCards().add(this.hand[pos]); // Adds the played card to the discard pile as a top card.
+		discardPile.setNumberOfCards(discardPile.getNumberOfCards() + 1); // Increments the number of cards in the discardPile.
+		this.hand[pos] = this.hand[this.NbrCards]; // The played card takes the value of the last card in the hand.
+		this.NbrCards--; // Decrements number of cards in the hand by one.
 		return true;
 	}
 	
-	public boolean checkPlayableCards( Card topCard) { // This method is here to check whether there is at least one playable card.
+	public boolean checkPlayableCards(Pile discardPile) { // This method is here to check whether there is at least one playable card.
 		boolean playable = false; // There are no playable cards.
 		int i;
 		for (i = 0 ; i < this.NbrCards ; i++) {
 			if (this.hand[i] instanceof RegularCard) { // If the card is a regular card
-				if ( (this.hand[i].getColor() == topCard.getColor() ) || (this.hand[i].getNbr() == topCard.getNbr() ) ) { // If the card matches the topCard by color or number.
+				if ( (this.hand[i].getColor() == discardPile.getTopCard().getColor() ) || (this.hand[i].getNbr() == discardPile.getTopCard().getNbr() ) ) { // If the card matches the topCard by color or number.
 					playable = true; // There is a playable card.
 					break; // Goes out of the for loop
 				}
 			} else if ( (this.hand[i] instanceof SkipCard) || (this.hand[i] instanceof ReverseCard) || (this.hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
-				if ( this.hand[i].getColor() == topCard.getColor() ) { // If the card matches the topCard by color .
+				if ( this.hand[i].getColor() == discardPile.getTopCard().getColor() ) { // If the card matches the topCard by color .
 					playable = true; // There is a playable card.
 					break;// Goes out of the for loop
 				}
@@ -75,18 +76,18 @@ public abstract class Player {
 		return playable;
 	}
 	
-	public boolean isWildFourPlayable( int pos , Card topCard) { // WildFourCard
+	public boolean isWildFourPlayable( int pos , Pile discardPile) { // WildFourCard
 		boolean playable = true; // the card is playable
 		int i;
 		for (i = 0 ; i < this.NbrCards ; i++) {
 			if ( i != pos) {
 				if (this.hand[i] instanceof RegularCard) { // If the card is a regular card
-					if ( (this.hand[i].getColor() == topCard.getColor() ) || (this.hand[i].getNbr() == topCard.getNbr() ) ) { // If the card matches the topCard by color or number.
+					if ( (this.hand[i].getColor() == discardPile.getTopCard().getColor() ) || (this.hand[i].getNbr() == discardPile.getTopCard().getNbr() ) ) { // If the card matches the topCard by color or number.
 						playable = false; // WildDrawFour is not playable.
 						break; // Goes out of the for loop
 					}
 				} else if ( (this.hand[i] instanceof SkipCard) || (this.hand[i] instanceof ReverseCard) || (this.hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
-					if ( this.hand[i].getColor() == topCard.getColor() ) { // If the card matches the topCard by color .
+					if ( this.hand[i].getColor() == discardPile.getTopCard().getColor() ) { // If the card matches the topCard by color .
 						playable = false; // WildDrawFour is not playable.
 						break;// Goes out of the for loop
 					}
@@ -100,21 +101,36 @@ public abstract class Player {
 		return playable;
 	}
 	
-	public boolean drawCard(int nbr,Deck deck) { // Draws one card from the Deck if there are still enough. (nbr <==> number of cards to draw)
-		boolean drawed = true;
+	public void drawCard(int nbr,Pile deck, Pile discardPile) { // Draws "nbr" card from the Deck if there are still enough. (nbr <==> number of cards to draw)
 		int i;
 		for ( i = 1; i <= nbr ; i++ ) {
+			if (deck.getNumberOfCards() == 0) {
+				
+				System.out.println("There are no more cards in the draw pile. We will now take all the previous played cards except the last one, shuffle it , and use it as a draw pile.");
+				
+				// Takes the cards from the discardPile except the top one and shuffle.
+				deck.setNumberOfCards(discardPile.getCards().size() - 2);
+				Card dpTopCard = discardPile.drawPileCard(); // Saving the discard pile top card in dpTopCard and removing it from the discard Pile array.
+				deck.setCards(discardPile.getCards()); // Copy content of discardPile in deck except the top card.
+				deck.shuffle(); // Shuffles the deck.
+				discardPile.resetPile(); // Resets the discard pile.
+				discardPile.addCard(dpTopCard); // Re adds the Top card to the discard pile.
+				
+				// Draw mechanic :
+				this.NbrCards++;
+				this.hand[NbrCards - 1] = deck.drawPileCard();
+				
+			} else {
+				
+			// Draw mechanic :	
 			this.NbrCards++;
-			hand[this.NbrCards - 1] = deck.drawDeckCard();
-			if (hand[this.NbrCards - 1] == null) {
-				this.NbrCards--;
-				drawed = false;
-				return drawed;
+			this.hand[NbrCards - 1] = deck.drawPileCard();
+			
+			
 			}
 		}
-		return drawed;
 	}
 
 	
-	public abstract int playProcess(Player player,Player nextPlayer,Card discardPileTopCard,Deck deck, Boolean firstPlayedCard) ; // This method handles all the playing process for a player. 
+	public abstract int playProcess(Player player,Player nextPlayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers) ; // This method handles all the playing process for a player. 
 }

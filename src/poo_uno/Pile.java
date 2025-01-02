@@ -5,18 +5,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Deck {
+public class Pile {
 
 	
 	// Attributes of the Deck class
 	
     private ArrayList<Card> cards;      // ArrayList of Card
-    private int numberOfCards;          // Actual number of cards in the deck
-	
-	
-    // Constructor; when no argument is passed, initialize a whole deck with 108 cards
+    private int numberOfCards;  // Actual number of cards in the deck
     
-    public Deck () { 
+    
+    public ArrayList<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(ArrayList<Card> cards) {
+		this.cards = cards;
+	}
+	
+    public int getNumberOfCards() {
+    	return this.numberOfCards;
+    }
+	
+	
+	public void setNumberOfCards(int numberOfCards) {
+		this.numberOfCards = numberOfCards;
+	}
+	
+	
+	
+    // Constructor of Pile; 
+	//When argument Deck is passed, initialize a whole deck with 108 cards . 
+	//When argument Discard Pile is passed , initializes a regular empty discard pile.
+    
+    public Pile (String DeckorDp) { 
+    	
+    	if (DeckorDp == "Deck") {
         numberOfCards = 108;
         cards = new ArrayList<Card>(numberOfCards);
         
@@ -52,39 +75,47 @@ public class Deck {
         for (int i=104; i<108; i++) {  
             cards.add( i, new WildDrawFour () );
         }
+        
+    	} else if (DeckorDp == "Discard Pile") {
+    		cards = new ArrayList<Card>(108);
+            this.numberOfCards = 0;
+    	}
     }
-
-    public int getNumberOfCards() {
-    	return this.numberOfCards;
-    }
-	
     
-    
-    // Shuffle randomly the cards of the deck
-    public void shuffle() {
-        Collections.shuffle(cards);
-    }
-   
     // Returns the top card of the deck and removing it.
-    public Card drawDeckCard() {
+    public Card drawPileCard() {
         
         	this.numberOfCards--;
             return this.cards.remove(cards.size() - 1);
        
     }
     
+    // Shuffle randomly the cards of the pile.
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }
 
-    // Returns the top card of the deck (without removing it)
+    // Returns the top card of the pile (without removing it)
     public Card getTopCard() {     
             return cards.get(cards.size() - 1);
     }
 	
-    // Adding a card to the deck (dunno why this is here neither)
+    // Adding a card to the pile.
     public void addCard(Card card) {
-        if (cards.size() < numberOfCards) {
-            cards.add(card);
-            numberOfCards++;
+        if (this.cards.size() < this.numberOfCards) {
+            this.cards.add(card);
+            this.numberOfCards++;
         }
+    }
+    
+    // Empties the cards array and sets numberofcards to 0.
+    public Pile resetPile() {
+    	int i;
+    	for (i = this.getNumberOfCards() - 1 ; i >= 0 ; i--) {
+    		this.getCards().remove(this.getCards().size() - 1);
+    	}
+    	this.setNumberOfCards(0);
+    	return this;
     }
     
     public void displayDeck() {
@@ -93,5 +124,4 @@ public class Deck {
             System.out.println((i + 1) + ": " + cards.get(i)); // Assumes Card class has a meaningful `toString` method
         }
     }
-	
 }

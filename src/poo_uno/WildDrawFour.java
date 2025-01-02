@@ -2,9 +2,10 @@ package poo_uno;
 
 public class WildDrawFour extends Card {
 	
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
 		player.getHand()[pos].chooseColor(player);
-		nextPlayer.drawCard( 4,  deck);
+		nextPlayer.drawCard( 4,  deck,discardPile);
+		skip(nextPlayer);
 	}
 
 	@Override
@@ -28,7 +29,7 @@ public class WildDrawFour extends Card {
 	}
 
 	@Override
-	public void drawTwo(Player nextPlayer,Deck deck) {
+	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -40,7 +41,7 @@ public class WildDrawFour extends Card {
 	}
 
 	@Override
-	public void reverse() {
+	public void reverse(int nbrOfPlayers,Player nextPlayer) {
 		// TODO Auto-generated method stub
 		
 	}

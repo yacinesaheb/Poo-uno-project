@@ -39,18 +39,18 @@ public class RegularCard extends ColoredCard {
 		
 	}
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void reverse() {
+	public void reverse(int nbrOfPlayers,Player nextPlayer) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drawTwo(Player nextPlayer,Deck deck) {
+	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
 		// TODO Auto-generated method stub
 		
 	}

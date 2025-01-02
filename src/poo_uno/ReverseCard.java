@@ -8,11 +8,15 @@ public class ReverseCard extends ColoredCard {
 	 }
 	
 	@Override
-	public void reverse() {
+	public void reverse(int nbrOfPlayers,Player nextPlayer) {
+		if (nbrOfPlayers == 2) {
+			 skip(nextPlayer);
+		} else {
 		if (Game.getGamedirection() == true) {
 		Game.setGamedirection(false);
 		} else if (Game.getGamedirection() == false) {
 			Game.setGamedirection(true);
+		}
 		}
 	}
 
@@ -37,7 +41,7 @@ public class ReverseCard extends ColoredCard {
 
 
 	@Override
-	public void drawTwo(Player nextPlayer,Deck decks) {
+	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
 		// TODO Auto-generated method stub	
 	}
 
@@ -48,7 +52,7 @@ public class ReverseCard extends ColoredCard {
 	}
 
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
 		// TODO Auto-generated method stub
 		
 	}

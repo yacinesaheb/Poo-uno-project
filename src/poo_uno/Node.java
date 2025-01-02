@@ -77,15 +77,15 @@ public class Node {
     
     
     //method to draw
-    public void distribution (Deck deck) {
+    public void distribution (Pile deck,Pile discardPile) {
     	 if (human != null) {
-             this.human.drawCard( 1,  deck);
+             this.human.drawCard( 1,  deck, discardPile);
          } else if (mrobot != null) {
              // Indicate that this node represents a robot
-        	 this.mrobot.drawCard( 1,  deck);
+        	 this.mrobot.drawCard( 1,  deck ,discardPile);
          }else if (erobot != null) {
              // Indicate that this node represents a robot
-        	 this.erobot.drawCard( 1,  deck);
+        	 this.erobot.drawCard( 1,  deck, discardPile);
          }  
          else {
              // Indicate that the node is uninitialized

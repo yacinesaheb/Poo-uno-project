@@ -6,10 +6,10 @@ public abstract class Card { // THE COLOR SETTER AND GETTER IS HERE BECAUSE WE N
 	public abstract String displayCard();
 	public abstract int getNbr();
 	public abstract void skip(Player nextPlayer);
-	public abstract void reverse();
-	public abstract void drawTwo(Player nextPlayer,Deck deck);
+	public abstract void reverse(int nbrOfPlayers,Player nextPlayer);
+	public abstract void drawTwo(Player nextPlayer,Pile deck, Pile discardPile);
 	public abstract void chooseColor(Player player);
-	public abstract void drawFourCards(Player player,Player nextPlayer,int pos,Deck deck);
+	public abstract void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile);
 	
 	public void setClr(String clr) { // clr's setter
 		this.clr = clr;

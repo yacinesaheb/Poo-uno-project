@@ -89,7 +89,7 @@ public class Game {
   //distribution.
     public void distribution () {
     	
-    	int totalCardsToDistribute = 7 * numberofplayers;
+    	int totalCardsToDistribute = 3* numberofplayers;
     	  for (int i = 0; i < totalCardsToDistribute; i++) {
             tracker.distribution(this.deck,this.discardPile);
     		next();			    		    		    		
@@ -113,15 +113,29 @@ public class Game {
         
         
         // game process
-        int i =0;
-        
-        while(i < 3 ) { // Condition to break the game (not done yet)
+        int playerRemaining=game.numberofplayers;
+        int j=1;
+        while(playerRemaining > 1 ) { // Condition to break the game (not done yet)
         Game.tracker.displayHumanhand();
         Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,game.firstPlayedCard,game.numberofplayers,reader);
-        System.out.println("The actual discard pile top card is :" + game.getDiscardPile().getTopCard().displayCard()); // THIS IS TEMPORARY TO TEST.
-        System.out.println("The actual number of cards remaining in the deck is : " + game.deck.getNumberOfCards()); // THIS IS TEMPORARY TO TEST.
-        game.next();        	
+        //System.out.println("The actual discard pile top card is :" + game.getDiscardPile().getTopCard().displayCard()); // THIS IS TEMPORARY TO TEST.
+        //System.out.println("The actual number of cards remaining in the deck is : " + game.deck.getNumberOfCards()); // THIS IS TEMPORARY TO TEST.
+        game.next();
+        
+     // Check if the current player has no cards left
+        if (Game.tracker.getnbrcards()== 0) {
+            playerRemaining--;
+            
+            System.out.println("Player " + Game.tracker.getnames() + " is out of cards! "+j+" place");
+            j++;
+            // Remove the player from the game (implementation depends on your game structure)
+            Game.tracker.removeNode();
+        }  
         }
+     // Announce the loser
+       
+        
+        System.out.println("Player " + game.turn.next(gamedirection, tracker).getnames()+ " is the loser!");
         reader.close(); // Close the Scanner at the end        
     }
 }

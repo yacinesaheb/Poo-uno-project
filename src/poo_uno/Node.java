@@ -38,7 +38,7 @@ public class Node {
 		return null;
         
     }
-    public void setNode(String playerType, String playerName) {
+    /*public void setNode(String playerType, String playerName) {
         if ("human".equalsIgnoreCase(playerType)) {
             addHuman(playerName);
         } else if ("robot".equalsIgnoreCase(playerType)) {
@@ -46,7 +46,7 @@ public class Node {
         } else {
             System.out.println("Invalid player type. Use 'human' or 'robot'.");
         }
-    }
+    }*/
     // Initializes the node for a human player.playerName The name of the human player to be added.
     public void addHuman(String playerName) {
         this.human = new Human(); // Create a new Human object
@@ -57,14 +57,20 @@ public class Node {
     }
 
     // Initializes the node for a robot player. (You can expand the Robot class to include more attributes if needed.)
-    public void addMediumRobot() {
-        this.mrobot = new MediumRobot(); // Create a new Medium Robot object
+    
+    public void addMediumRobot(int i) {
+       
+    	this.mrobot = new MediumRobot(); // Create a new Medium Robot object	
+    	this.mrobot.setName("medium robot "+i);
         this.next = null; // Initialize pointers to null
         this.prev = null;
+        
     }
-
-    public void addEasyRobot() {
+    
+    public void addEasyRobot(int i2) {
+    	
         this.erobot = new EasyRobot(); // Create a new Medium Robot object
+        this.erobot.setName("easy robot "+i2);
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }
@@ -138,6 +144,49 @@ public class Node {
 		
 		
 	}
+    public int getnbrcards() {
+        if (human != null) {
+            
+        return this.human.getNbrCards();
+        } else if (mrobot != null) {
+        	return this.mrobot.getNbrCards();
+        }else if (erobot != null) {
+            // Indicate that this node represents a robot
+        	return this.erobot.getNbrCards();
+        }  
+        else {
+            // Indicate that the node is uninitialized
+            System.out.println("NODE IS UNINITIALIZED");
+        }
+		return 0;
+    }
+    public String getnames() {
+        if (human != null) {
+            
+        return this.human.getName();
+        } else if (mrobot != null) {
+        	return this.mrobot.getName();
+        }else if (erobot != null) {
+            // Indicate that this node represents a robot
+        	return this.erobot.getName();
+        }  
+        else {
+            // Indicate that the node is uninitialized
+            System.out.println("NODE IS UNINITIALIZED");
+        }
+		return "";
+    }
+
+    
+ // Method to remove the node from the list
+    public void removeNode() {
+        if (this.prev != null) {
+            this.prev.next = this.next;
+        }
+        if (this.next != null) {
+            this.next.prev = this.prev;
+        }
+    }
 
 
 

@@ -12,6 +12,10 @@ public class Turn {
     	
     	return this.head;
     }
+    
+    public String getnames() {
+			return this.head.getnames();
+	}
    
      //Initializes an empty circular doubly linked list.
     
@@ -44,10 +48,10 @@ public class Turn {
 
     
      // Adds a new robot player to the list.
-    
+    int i =1;
     public void addMediumRobot() {
         Node newNode = new Node();
-        newNode.addMediumRobot(); // Initialize the node with the medium robot player
+        newNode.addMediumRobot(i); // Initialize the node with the medium robot player
         if (head == null) {
             // If the list is empty
             head = newNode;
@@ -61,11 +65,12 @@ public class Turn {
             newNode.next = head;
             head.prev = newNode;
         }
+        i++;
     }
-    
+    int i2=1;
     public void addEasyRobot() {
         Node newNode = new Node();
-        newNode.addEasyRobot(); // Initialize the node with the medium robot player
+        newNode.addEasyRobot(i2); // Initialize the node with the medium robot player
         if (head == null) {
             // If the list is empty
             head = newNode;
@@ -79,6 +84,7 @@ public class Turn {
             newNode.next = head;
             head.prev = newNode;
         }
+        i2++;
     }
     
     //next method
@@ -124,4 +130,7 @@ public class Turn {
         } while (current != head);
         head = null; // Set the head to `null` to signify the list is empty
     }
+
+
+	
 }

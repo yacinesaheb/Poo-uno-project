@@ -14,7 +14,7 @@
 - For two players , the Reverse card that works as a skip card. 
 - The Draw two and draw four cards makes the drawing player skip his turn.
 
-## Classes :  *(Brief report explaining the class structure & how key design decisions align with OOP principles )*
+## Classes :  *(Not so brief report explaining the class structure & how key design decisions align with OOP principles )*
 
 #### Card class :
 - Mother class Card has three daughter classes ColoredCard WildCard and WildDrawFourCard. ColoredCard has four daughter classes RegularCard ReverseCard SkipCard DrawTwoCard.
@@ -57,15 +57,16 @@
 
 
 
-## MEMBERS AND CONTRIBUTIONS : *(whenever yall finish something please add it here besides your name)*
+## MEMBERS AND CONTRIBUTIONS : 
 - CHETTAB Abderrahmane 			  : Full Deck class.
 - RIZOU Adem 					  : Full Card class.
-- SAHEB Yacine 					  : Full Game class + main + game flow.
-- BELABDELOUAHAB Farouk Benyoucef : Full Player class + some fixes & supervision in the Card & Deck class + Writing the report.
+- SAHEB Yacine 					  : Full Game class + Main class + testing and fixing bugs.
+- BELABDELOUAHAB Farouk Benyoucef : Full Player class + some fixes & supervision in the Card & previously named Deck class + testing and fixing bugs + Writing the report.
 
-## Reflections : *(short reflection on challenges encountered during development and how they were overcome)* 
+## Reflections : *(short or not so short reflection on challenges encountered during development and how they were overcome)* 
 - In the beginning we had some attributes of outsider classes as arguments in methods for a specific class. We after this removed those attributes as arguments and used the setters and getters directly in the method itself.
 - The yelling UNO mechanic was not possible for us to do because everything is in a text interface. We can't have two entry from two players or + to make the concerned player click on an UNO button. Also, everybody knows whenever a player is at one card left because his hand is displayed.
 - The Wild Draw Four card mechanic is also impossible in a textual interface,because the hands of the players are displayed. (The wild four card mechanic is that if the player plays his wild four card even if it's not his only playable card , the next player can suspect him of that and if he's right , the player whom played the card must draw cards himself).
 - We wanted to add even a Hard difficulty robot that would analyze the hand of the other players to choose his color (even if that's not intuitively correct because players are not supposed to see others hands, but players can think and robots can't so this inconvenience was just meant to be an advantage to the robot). But we didn't because it would take us a lot of time to apply the overloading to the playProcess method depending on the number of players in the game. We thought about initializing 4 players even if we had only 2 that played but in the end we preferred to stick to our code and lose any more time because exams approached.
 - We even wanted to add a very Hard robot that kept tracking every drawing process from every other player and choose his color depending on the least present color in the hands of the players , but that too was too much time taking.
+- In the player class , we're aware that in the playProcess method , there are some repetitions in the code regarding the checking procedure (comparing colors and numbers etc) , but unfortunately we couldn't make one unique method to this because it differed from a case to another (first playable card / normal play / play drawn card) and from humans to robots and even between robots of different difficulties.

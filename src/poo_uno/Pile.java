@@ -1,24 +1,21 @@
 package poo_uno;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Random;
 
 public class Pile {
 
 	
 	// Attributes of the Deck class
 	
-    private ArrayList<Card> cards;      // ArrayList of Card
+    private Card[] cards;      // ArrayList of Card
     private int numberOfCards;  // Actual number of cards in the deck
     
     
-    public ArrayList<Card> getCards() {
+    public Card[] getCards() {
 		return cards;
 	}
 
-	public void setCards(ArrayList<Card> cards) {
+	public void setCards(Card[] cards) {
 		this.cards = cards;
 	}
 	
@@ -30,98 +27,116 @@ public class Pile {
 	public void setNumberOfCards(int numberOfCards) {
 		this.numberOfCards = numberOfCards;
 	}
-	
-	
-	
+
     // Constructor of Pile; 
 	//When argument Deck is passed, initialize a whole deck with 108 cards . 
 	//When argument Discard Pile is passed , initializes a regular empty discard pile.
     
     public Pile (String DeckorDp) { 
     	
-    	if (DeckorDp == "Deck") {
-        numberOfCards = 108;
-        cards = new ArrayList<Card>(numberOfCards);
-        
-        // ALL COLORS AND NUMBERS AVAILABLE
-        final String[] colors = { "R", "B", "G", "Y"}; // We took only the initials to make the display better.
-        final int[] numbers = {0,1,2,3,4,5,6,7,8,9};
-        
-        // iterate through all the colors
-        for (int i=0; i<4; i++) {
+        if (DeckorDp.equals("Deck")) {
+            numberOfCards = 108;
+            cards = new Card[numberOfCards];
 
-            // Adding zero cards
-            cards.add(i*25, new RegularCard(colors[i],0)); 
-            
-            // Adding numbered cards
-            for (int j=1; j<19; j+=2) { 
-                cards.add(i*25+j , new RegularCard(colors[i], numbers[j/2]) ) ;
-                cards.add(i*25+j+1 , new RegularCard(colors[i], numbers[j/2]) );
+            // ALL COLORS AND NUMBERS AVAILABLE
+            final String[] colors = {"R", "B", "G", "Y"}; // We took only the initials to make the display better.
+            final int[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+            int index = 0; // Tracks the current position in the cards array
+
+            // Iterate through all the colors
+            for (int i = 0; i < 4; i++) {
+
+                // Adding zero cards
+                cards[index++] = new RegularCard(colors[i], 0);
+
+                // Adding numbered cards
+                for (int j = 1; j < 10; j++) {
+                    cards[index++] = new RegularCard(colors[i], numbers[j]);
+                    cards[index++] = new RegularCard(colors[i], numbers[j]);
+                }
+
+                // Adding action cards
+                cards[index++] = new DrawTwoCard(colors[i]);
+                cards[index++] = new DrawTwoCard(colors[i]);
+                cards[index++] = new ReverseCard(colors[i]);
+                cards[index++] = new ReverseCard(colors[i]);
+                cards[index++] = new SkipCard(colors[i]);
+                cards[index++] = new SkipCard(colors[i]);
             }
-            
-            // Adding action cards
-            cards.add( 19+i*25, new DrawTwoCard(colors[i]) );
-            cards.add( 20+i*25, new DrawTwoCard(colors[i]) );
-            cards.add( 21+i*25, new ReverseCard (colors[i]) );
-            cards.add( 22+i*25, new ReverseCard (colors[i]) );
-            cards.add( 23+i*25, new SkipCard (colors[i]) );
-            cards.add( 24+i*25, new SkipCard (colors[i]) );
-        }
 
-        // Adding special cards
-        for (int i=100; i<104; i++) {  
-            cards.add( i, new WildCard () );
-        }
-        for (int i=104; i<108; i++) {  
-            cards.add( i, new WildDrawFour () );
-        }
-        
-    	} else if (DeckorDp == "Discard Pile") {
-    		cards = new ArrayList<Card>(108);
+            // Adding special cards
+            for (int i = 0; i < 4; i++) {
+                cards[index++] = new WildCard();
+            }
+            for (int i = 0; i < 4; i++) {
+                cards[index++] = new WildDrawFour();
+            }
+
+        } else if (DeckorDp.equals("Discard Pile")) {
+        	
+            cards = new Card[108];
             this.numberOfCards = 0;
-    	}
+            
+        } /*else if (DeckorDp.equals("Deck20")) { // Deck of 20 same cards to test the refill mechanic from draw card. PLEASE DO NOT REMOVE THIS.
+        	 numberOfCards = 20;
+             cards = new Card[numberOfCards];
+             
+          // ALL COLORS AND NUMBERS AVAILABLE
+             final String[] colors = {"R", "B", "G", "Y"}; // We took only the initials to make the display better.
+             final int[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+             
+             Random randomIndex = new Random(); // Creating the randomizer.
+             
+             for (int i = 0;i < numberOfCards;i++) {
+            	 int randomNumberIndex = randomIndex.nextInt(numbers.length);
+            	 int randomColorIndex = randomIndex.nextInt(colors.length);
+            	 cards[i] = new RegularCard(colors[randomColorIndex],numbers[randomNumberIndex]);
+             }
+        }*/
     }
     
     // Returns the top card of the deck and removing it.
     public Card drawPileCard() {
-        
-        	this.numberOfCards--;
-            return this.cards.remove(cards.size() - 1);
-       
+            return cards[--numberOfCards];
     }
     
     // Shuffle randomly the cards of the pile.
     public void shuffle() {
-        Collections.shuffle(cards);
+        for (int i = numberOfCards - 1; i > 0; i--) {
+            int randomIndex = (int) (Math.random() * (i + 1));
+            Card temp = cards[i];
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
+        }
     }
 
     // Returns the top card of the pile (without removing it)
-    public Card getTopCard() {     
-            return cards.get(cards.size() - 1);
+    public Card getTopCard() {
+        return cards[numberOfCards - 1];
     }
-	
+
     // Adding a card to the pile.
     public void addCard(Card card) {
-        if (this.cards.size() < this.numberOfCards) {
-            this.cards.add(card);
-            this.numberOfCards++;
+        if (numberOfCards < cards.length) {
+            cards[numberOfCards++] = card;
         }
     }
-    
-    // Empties the cards array and sets numberofcards to 0.
+
+    // Empties the cards array and sets numberOfCards to 0.
     public Pile resetPile() {
-    	int i;
-    	for (i = this.getNumberOfCards() - 1 ; i >= 0 ; i--) {
-    		this.getCards().remove(this.getCards().size() - 1);
-    	}
-    	this.setNumberOfCards(0);
-    	return this;
+        for (int i = 0; i < numberOfCards; i++) {
+            cards[i] = null;
+        }
+        numberOfCards = 0;
+        return this;
     }
-    
+
+    // Displays the deck
     public void displayDeck() {
-        System.out.println("Deck contains " + cards.size() + " cards:");
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println((i + 1) + ": " + cards.get(i)); // Assumes Card class has a meaningful `toString` method
+        System.out.println("Deck contains " + numberOfCards + " cards:");
+        for (int i = 0; i < numberOfCards; i++) {
+            System.out.println((i + 1) + ": " + cards[i].displayCard()); // Assumes Card class has a meaningful `toString` method
         }
     }
 }

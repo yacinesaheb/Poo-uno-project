@@ -1,5 +1,7 @@
 package poo_uno;
 
+import java.util.Scanner;
+
 public class RegularCard extends ColoredCard {
 	
 	// Set all the possible numbers
@@ -34,12 +36,12 @@ public class RegularCard extends ColoredCard {
 	}
 
 	@Override
-	public void chooseColor(Player player) {
+	public void chooseColor(Player player,Scanner reader) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -10,20 +10,19 @@ import java.util.Scanner;
 	    }
 		
 	@Override
-	public int playProcess(Player nextPlayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers,   Scanner reader) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
+	public int playProcess(Player nextPlayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,Scanner reader) { // For a player , he gets to choose which card he plays from his hand. The only special case is the wildDrawFour card that can only be played when there are no other options.
 			
 			int pos; // Initializing the variable that will determine which card the player wants to play
 			boolean played = false; // Check if the card has been successfully played to go out of the loop.
 			
-			if ( firstPlayedCard == true ) { // If this is the first ever card played in the game
+			if ( firstPlayedCard[0] == true ) { // If this is the first ever card played in the game
 				
-				firstPlayedCard = false; // It's not the first played card anymore after the next player.
+				firstPlayedCard[0] = false; // It's not the first played card anymore after the next player.
 				
 				do {
 				// Asking the player to choose a card from his deck to play
 			    do {
-			    	System.out.println( this.getName()+ " please choose a card to play from your deck (Choose a number from 1 to n such as n = " + this.getNbrCards() + ")");
-			    	
+			    	System.out.println( this.getName()+ " please choose a card to play from your deck (Choose a number from 1 to " + this.getNbrCards() + ")");
 			    	pos = reader.nextInt() - 1; // Get the value of integer pos from the user.
 			    	
 			    }
@@ -46,7 +45,7 @@ import java.util.Scanner;
 					played = this.playCard( pos , discardPile);
 					System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 				} else if (this.getHand()[pos] instanceof WildCard) {
-					this.getHand()[pos].chooseColor(this);
+					this.getHand()[pos].chooseColor(this,reader);
 					played = this.playCard( pos ,  discardPile);
 					System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 				} else if ( (this.getHand()[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
@@ -54,23 +53,20 @@ import java.util.Scanner;
 					}
 			    } while (played == false); // Repeat the playing process while the player hasn't played yet. We don't need to verify if he can play a card because it's the first played card of the game.
 			
-			} else if (checkPlayableCards(discardPile) == true ) {
+			} else if ( this.getSkip() == true ) { // If the player's turn must be skipped.
+				System.out.println(this.getName() + " has to skip his turn because the previous player played a skip card !");
+				played = true;
+				this.setSkip(false);	
+				
+			} else if (checkPlayableCards(discardPile) == true ) { // The player has at least one playable card.
 			do {
-				if ( this.getSkip() == true ) {
-					System.out.println(this.getName() + " has to skip his turn because the previous player played a skip card !");
-					played = true;
-					this.setSkip(false);
-				} else {
 				
 			// Asking the player to choose a card from his deck to play
-				do {
-				    System.out.printf( this.getName(), " please choose a card to play from your deck (Choose a number from 1 to n such as n = " + this.getNbrCards() + ")");
-				    Scanner readpos = new Scanner(System.in); // Initialize an integer scanner.
-				    pos = readpos.nextInt() - 1; // Get the value of integer pos from the user.
-				    readpos.close();
-				   } while ( ( pos > 0 ) && ( pos <= this.getNbrCards()) ); // Condition to get a correct position
-				
-		    
+			do {
+				System.out.println( this.getName()+ " please choose a card to play from your deck (Choose a number from 1 to " + this.getNbrCards() + ")");
+				pos = reader.nextInt() - 1; // Get the value of integer pos from the user.
+			} while ( ( pos < 0 ) || ( pos > this.getNbrCards()) ); // Condition to get a correct position
+
 		    // Determining the card played and play it.
 			if (this.getHand()[pos] instanceof RegularCard) { // If the card is a regular card
 				if ( (this.getHand()[pos].getColor() == discardPile.getTopCard().getColor() ) || (this.getHand()[pos].getNbr() == discardPile.getTopCard().getNbr() ) ) { // If the card matches the discardPileTopCard by color or number.
@@ -96,19 +92,23 @@ import java.util.Scanner;
 					System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 				}
 			} else if (this.getHand()[pos] instanceof WildCard) {
-				this.getHand()[pos].chooseColor(this);
+				this.getHand()[pos].chooseColor(this,reader);
 					played = this.playCard( pos ,  discardPile);
 					System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 
 			} else if ( (this.getHand()[pos] instanceof WildDrawFour) ) { // If the card is a wild card 
 					if ( isWildFourPlayable(pos,discardPile) == true ) {
-						this.getHand()[pos].drawFourCards(this , nextPlayer , pos ,  deck,discardPile);
+						this.getHand()[pos].chooseColor(this,reader);
+						this.getHand()[pos].drawFourCards(this , nextPlayer ,pos , deck , discardPile , reader);
 						played = this.playCard( pos ,  discardPile);
 						System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard() + ". " + nextPlayer.getName() +  " has been given 4 cards, and the new color is " + discardPile.getTopCard().getColor());
+					} else {
+						System.out.println(this.getName() + ", you can't play a wild draw four card because you have at least one other playable card.");
 					}
-			    }
+			} else {
+				System.out.println(this.getName() + ", you can't play the card you have chosen.");
 			}
-		} while (played = false); // Repeat the playing process while the player hasn't played yet. This here is to make the player choose a playable card (we've verified before that there is at least one playable card is his hand with the if statement in line 18)
+		} while (played == false); // Repeat the playing process while the player hasn't played yet. This here is to make the player choose a playable card (we've verified before that there is at least one playable card is his hand with the if statement in line 18)
 			
 		} else { // There are no playable card in the hand of the player or it's not the first turn.
 			System.out.println(this.getName() + " has no playable cards. So he will draw one card.");
@@ -139,12 +139,13 @@ import java.util.Scanner;
 					System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 				}
 			} else if (this.getHand()[getNbrCards() - 1] instanceof WildCard) {
-				this.getHand()[getNbrCards() - 1].chooseColor(this);
+				this.getHand()[getNbrCards() - 1].chooseColor(this,reader);
 				this.playCard( getNbrCards() - 1 ,  discardPile);
 				System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard());
 
 			} else if ( (this.getHand()[getNbrCards() - 1] instanceof WildDrawFour) ) { // If the card is a wild card 
-				this.getHand()[getNbrCards() - 1].drawFourCards(this , nextPlayer , getNbrCards() - 1 ,  deck,discardPile);
+				this.getHand()[getNbrCards() - 1].chooseColor(this,reader);
+				this.getHand()[getNbrCards() - 1].drawFourCards(this , nextPlayer , getNbrCards() - 1 , deck , discardPile , reader);
 				this.playCard( getNbrCards() - 1 ,  discardPile);
 				System.out.println(this.getName() + " just played " + discardPile.getTopCard().displayCard() + ". " + nextPlayer.getName() +  " has been given 4 cards, and the new color is " + discardPile.getTopCard().getColor());
 			   } 

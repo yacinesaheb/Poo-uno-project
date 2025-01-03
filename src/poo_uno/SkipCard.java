@@ -1,5 +1,7 @@
 package poo_uno;
 
+import java.util.Scanner;
+
 public class SkipCard extends ColoredCard {
 	
 	// SkipCard constructor
@@ -14,7 +16,7 @@ public class SkipCard extends ColoredCard {
 
 	@Override
 	public String displayCard() {
-		return null;
+		return (getColor() + "-Skip"); // It will be displayed as R-Skip for example.
 		
 	}
 
@@ -33,13 +35,13 @@ public class SkipCard extends ColoredCard {
 	}
 
 	@Override
-	public void chooseColor(Player player) {
+	public void chooseColor(Player player,Scanner reader) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
 		// TODO Auto-generated method stub
 		
 	}

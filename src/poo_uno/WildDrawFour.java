@@ -1,10 +1,11 @@
 package poo_uno;
 
+import java.util.Scanner;
+
 public class WildDrawFour extends Card {
 	
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile) {
-		player.getHand()[pos].chooseColor(player);
-		nextPlayer.drawCard( 4,  deck,discardPile);
+	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
+		nextPlayer.drawCard(4,deck,discardPile);
 		skip(nextPlayer);
 	}
 
@@ -33,13 +34,6 @@ public class WildDrawFour extends Card {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void chooseColor(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void reverse(int nbrOfPlayers,Player nextPlayer) {
 		// TODO Auto-generated method stub

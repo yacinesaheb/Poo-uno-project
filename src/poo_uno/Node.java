@@ -118,7 +118,7 @@ public class Node {
     }
 
 
-    public int playProcess(Player nextplayer,Pile discardPile,Pile deck, Boolean firstPlayedCard,int nbrOfPlayers,        Scanner reader){
+    public int playProcess(Player nextplayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,        Scanner reader){
     	int temp=0;
 		if (human != null) {
            return temp=human.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);

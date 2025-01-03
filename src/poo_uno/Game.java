@@ -16,7 +16,7 @@ public class Game {
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
     private Pile discardPile;
-    private static boolean firstPlayedCard = true;
+    private boolean[] firstPlayedCard = { true };
 
     // Attributes for players
     private int numberofplayers; // Total number of players
@@ -91,22 +91,19 @@ public class Game {
     	
     	int totalCardsToDistribute = 7 * numberofplayers;
     	  for (int i = 0; i < totalCardsToDistribute; i++) {
-    		
-    			
             tracker.distribution(this.deck,this.discardPile);
     		next();			    		    		    		
     	} 
-    	  
-    	
     }
     // Main method to execute the game setup and display the player list.
      
     public static void main(String[] args) {
-    	//init variable 
+    	
+    	// Initialization of variables.
         Scanner reader = new Scanner(System.in); // Create the Scanner here
         Game game = new Game();
         game.deck=new Pile("Deck");
-        game.discardPile  =new Pile("Discard Pile");
+        game.discardPile  = new Pile("Discard Pile");
         
         // Game setup
         game.fillTurn(reader); // Populate the Turn linked list with players
@@ -115,14 +112,17 @@ public class Game {
         game.distribution();
         
         
-        // game processe 
+        // game process
         int i =0;
         
-        while(i < 3 ) {//condition to break the game//
+        while(i < 3 ) { // Condition to break the game (not done yet)
         Game.tracker.displayHumanhand();
-        Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,firstPlayedCard,game.numberofplayers,reader);
+        Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,game.firstPlayedCard,game.numberofplayers,reader);
+        System.out.println("The actual discard pile top card is :" + game.getDiscardPile().getTopCard().displayCard()); // THIS IS TEMPORARY TO TEST.
+        System.out.println("The actual number of cards remaining in the deck is : " + game.deck.getNumberOfCards()); // THIS IS TEMPORARY TO TEST.
         game.next();        	
         }
         reader.close(); // Close the Scanner at the end        
     }
 }
+    

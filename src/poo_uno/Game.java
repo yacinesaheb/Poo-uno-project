@@ -120,7 +120,7 @@ public class Game {
         Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,game.firstPlayedCard,game.numberofplayers,reader);
         //System.out.println("The actual discard pile top card is :" + game.getDiscardPile().getTopCard().displayCard()); // THIS IS TEMPORARY TO TEST.
         //System.out.println("The actual number of cards remaining in the deck is : " + game.deck.getNumberOfCards()); // THIS IS TEMPORARY TO TEST.
-        game.next();
+        
         
      // Check if the current player has no cards left
         if (Game.tracker.getnbrcards()== 0) {
@@ -130,7 +130,8 @@ public class Game {
             j++;
             // Remove the player from the game (implementation depends on your game structure)
             Game.tracker.removeNode();
-        }  
+        }
+        game.next();
         }
      // Announce the loser
        

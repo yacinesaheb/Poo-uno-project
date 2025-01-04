@@ -38,15 +38,7 @@ public class Node {
 		return null;
         
     }
-    /*public void setNode(String playerType, String playerName) {
-        if ("human".equalsIgnoreCase(playerType)) {
-            addHuman(playerName);
-        } else if ("robot".equalsIgnoreCase(playerType)) {
-            addMediumRobot();
-        } else {
-            System.out.println("Invalid player type. Use 'human' or 'robot'.");
-        }
-    }*/
+    
     // Initializes the node for a human player.playerName The name of the human player to be added.
     public void addHuman(String playerName) {
         this.human = new Human(); // Create a new Human object
@@ -82,17 +74,18 @@ public class Node {
             System.out.println("PLAYER NAME: " + human.getName());
         } else if (mrobot != null) {
             // Indicate that this node represents a robot
-            System.out.println("ROBOT (MEDIUM)");
+            System.out.println(mrobot.getName());
         }else if (erobot != null) {
             // Indicate that this node represents a robot
-            System.out.println("ROBOT(EASY)");
+            System.out.println(erobot.getName());
         }  
         else {
             // Indicate that the node is uninitialized
             System.out.println("NODE IS UNINITIALIZED");
         }
     }
-    public void displayHumanhand() {
+    
+public void displayHumanhand() {
         if (human != null) {
             // Display the human hand
             this.human.displayHand();

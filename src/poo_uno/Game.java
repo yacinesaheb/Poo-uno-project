@@ -10,7 +10,7 @@ public class Game {
 	
 
     // Attributes
-    private int currentplayer; // Tracks the current player//i think this one will go 
+    
     private Pile deck; // Represents the deck of cards (implement Deck separately)
     private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)//this one comes from player class from play process.
     private Turn turn = new Turn();// Linked list to manage players
@@ -23,13 +23,8 @@ public class Game {
     private String playersnames; // Array to store player names
 
     // Getters and setters of some attributes.
-    public Pile getDiscardPile() { // discardPileTopCard's getter
-    	return discardPile;
-    }
     
-    public void setDiscardPile(Pile discardPile) { // discardPileTopCard's setter
-    	this.discardPile = discardPile;
-    }
+    
     
 	public static boolean getGamedirection() { // Game direction getter
 		return gamedirection; 
@@ -110,6 +105,7 @@ public class Game {
         Game.tracker=game.turn.gethead();//give the head to the tracker 
         game.deck.shuffle();
         game.distribution();
+        game.turn.display();
         
         
         // game process

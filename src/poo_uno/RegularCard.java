@@ -2,11 +2,9 @@ package poo_uno;
 
 import java.util.Scanner;
 
-public class RegularCard extends ColoredCard {
+public class RegularCard extends Card {
 	
-	// Set all the possible numbers
-			int[] Number = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-			
+
 	// Initialize the attributes		
 	private int nbr;
 	
@@ -23,38 +21,21 @@ public class RegularCard extends ColoredCard {
 		this.nbr = nbr;
 	}
 	 
-	 
-	 public String displayCard() { // Display a regular card
+	@Override 
+	public String displayCard() { // Display a regular card
 		return getColor() + "-" + getNbr(); // It will be displayed as R-0 for example.
 	}
-	 
-	 // Not needed methods for this class :
-	@Override
-	public void skip(Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void chooseColor(Player player,Scanner reader) {
-		// TODO Auto-generated method stub
-		
+	public boolean cardMatches(Pile discardPile) {
+		boolean match = false;
+		if ( ( this.getColor() == discardPile.getTopCard().getColor() ) || (this.nbr == discardPile.getTopCard().getNbr()) ) {
+			return true;
+		}
+		return match;		
 	}
 	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void reverse(int nbrOfPlayers,Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
-		// TODO Auto-generated method stub
-		
-	}
-	 
+	public void specialEvent(Player nextPlayer,int nbrOfPlayers, Pile deck, Pile discardPile, Scanner reader) {
+		// This method does nothing for a regular card.
+	}	 
 }

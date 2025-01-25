@@ -4,39 +4,26 @@ import java.util.Scanner;
 
 public class WildDrawFour extends Card {
 	
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
-		nextPlayer.drawCard(4,deck,discardPile);
-		skip(nextPlayer);
-	}
-
 	@Override
 	public String displayCard() {
-		return (getColor() + "-WD4") ;
-		
+		if ( this.getColor() == null ) {
+			return ("WD4");
+		} else {
+			return (this.getColor() + "-WD4"); // It will be displayed as R-WC for example.
+		}
 	}
 
-	// Not needed methods for this class :
+
+	@Override
+	public void specialEvent(Player nextPlayer,int nbrOfPlayers, Pile deck, Pile discardPile, Scanner reader) { // Makes the next player draw 4 cards and skip his turn.
+		nextPlayer.drawCard(4,deck,discardPile);
+		nextPlayer.setSkip(true);
+	}
+
 
 	@Override
 	public int getNbr() {
 		// TODO Auto-generated method stub
-		return -1;
-	}
-
-	@Override
-	public void skip(Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void reverse(int nbrOfPlayers,Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 }

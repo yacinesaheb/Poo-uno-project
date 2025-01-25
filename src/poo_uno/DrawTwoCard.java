@@ -2,18 +2,12 @@ package poo_uno;
 
 import java.util.Scanner;
 
-public class DrawTwoCard extends ColoredCard {
+public class DrawTwoCard extends Card {
 	
 	// DrawTwoCard class constructor 
 	 public DrawTwoCard (String clr) {
 		 setClr(clr);	 
 	 }
-	 
-	@Override
-	public void drawTwo(Player nextPlayer,Pile deck, Pile discardPile) {
-			nextPlayer.drawCard(2,deck,discardPile);
-			skip(nextPlayer);
-		}
 
 	@Override
 	public String displayCard() {
@@ -21,37 +15,14 @@ public class DrawTwoCard extends ColoredCard {
 		
 	}
 
-	// Not needed methods for this class :
+	@Override
+	public void specialEvent(Player nextPlayer,int nbrOfPlayers, Pile deck, Pile discardPile, Scanner reader) {
+		nextPlayer.drawCard(2,deck,discardPile);
+	}
+
 	@Override
 	public int getNbr() {
 		// TODO Auto-generated method stub
-		return -1;
+		return 0;
 	}
-
-	@Override
-	public void skip(Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void chooseColor(Player player,Scanner reader) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void reverse(int nbrOfPlayers,Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-
 }

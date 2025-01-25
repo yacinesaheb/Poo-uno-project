@@ -1,6 +1,5 @@
 package poo_uno;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Player { 
@@ -72,20 +71,16 @@ public abstract class Player {
 		boolean playable = false; // There are no playable cards.
 		int i;
 		for (i = 0 ; i < this.NbrCards ; i++) {
-			if (this.hand[i] instanceof RegularCard) { // If the card is a regular card
-				if ( (this.hand[i].getColor() == discardPile.getTopCard().getColor() ) || (this.hand[i].getNbr() == discardPile.getTopCard().getNbr() ) ) { // If the card matches the topCard by color or number.
+			if ( (this.hand[i] instanceof WildCard) || (this.hand[i] instanceof WildDrawFour) ) { // If the card is a wild card 
+				playable = true; // There is a playable card.
+				break; // Goes out of the for loop
+			} else {
+				if (this.hand[i].cardMatches(discardPile)) {
 					playable = true; // There is a playable card.
 					break; // Goes out of the for loop
 				}
-			} else if ( (this.hand[i] instanceof SkipCard) || (this.hand[i] instanceof ReverseCard) || (this.hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
-				if ( this.hand[i].getColor() == discardPile.getTopCard().getColor() ) { // If the card matches the topCard by color .
-					playable = true; // There is a playable card.
-					break;// Goes out of the for loop
-				}
-			} else if ( (this.hand[i] instanceof WildCard) || (this.hand[i] instanceof WildDrawFour) ) { // If the card is a wild card 
-				playable = true; // There is a playable card.
-				break; // Goes out of the for loop
-			}	
+			}
+			
 		}
 		return playable;
 	}
@@ -95,26 +90,21 @@ public abstract class Player {
 		int i;
 		for (i = 0 ; i < this.NbrCards ; i++) {
 			if ( i != pos) {
-				if (this.hand[i] instanceof RegularCard) { // If the card is a regular card
-					if ( (this.hand[i].getColor() == discardPile.getTopCard().getColor() ) || (this.hand[i].getNbr() == discardPile.getTopCard().getNbr() ) ) { // If the card matches the topCard by color or number.
-						playable = false; // WildDrawFour is not playable.
-						break; // Goes out of the for loop
-					}
-				} else if ( (this.hand[i] instanceof SkipCard) || (this.hand[i] instanceof ReverseCard) || (this.hand[i] instanceof DrawTwoCard) ) { // If the card is a special card
-					if ( this.hand[i].getColor() == discardPile.getTopCard().getColor() ) { // If the card matches the topCard by color .
-						playable = false; // WildDrawFour is not playable.
-						break;// Goes out of the for loop
-					}
-				} else if ( (this.hand[i] instanceof WildCard) ) { // If the card is a wild card 
+				if ( (this.hand[i] instanceof WildCard) ) { // If the card is a wild card 
 					playable = false; // WildDrawFour is not playable
 					break; // Goes out of the for loop
+				} else {
+					if (this.hand[i].cardMatches(discardPile)) {
+						playable = false; // There is a playable card.
+						break; // Goes out of the for loop
+					}
 				}	
 			}
 		}
 		return playable;
 	}
 	
-	public void drawCard(int nbr, Pile deck, Pile discardPile) {
+	public boolean drawCard(int nbr, Pile deck, Pile discardPile) {
 	    for (int i = 1; i <= nbr; i++) {
 	        if (deck.getNumberOfCards() == 0) {
 	            System.out.println("There are no more cards in the draw pile. We will now take all the previous played cards except the last one, shuffle it, and use it as a draw pile (deck).");
@@ -160,7 +150,9 @@ public abstract class Player {
 	            this.NbrCards++;
 	        }
 	    }
+	    return true;
 	}
 	
-	public abstract int playProcess(Player nextPlayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,Scanner reader) ; // This method handles all the playing process for a player. 
+	public abstract int playProcess(Player nextPlayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,Scanner reader) ; // This method handles all the playing process for a player.
+	public abstract void chooseColor(Scanner reader,Card playedCard); // Method for a player to choose a color for wild cards.
 }

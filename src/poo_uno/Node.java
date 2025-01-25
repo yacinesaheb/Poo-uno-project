@@ -83,16 +83,7 @@ public class Node {
             // Indicate that the node is uninitialized
             System.out.println("NODE IS UNINITIALIZED");
         }
-    }
-    
-public void displayHumanhand() {
-        if (human != null) {
-            // Display the human hand
-            this.human.displayHand();
-        }
-       }
-    
-    
+    }    
     //method to draw
     public void distribution (Pile deck,Pile discardPile) {
     	 if (human != null) {

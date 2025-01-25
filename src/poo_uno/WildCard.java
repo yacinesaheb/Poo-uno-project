@@ -5,41 +5,23 @@ public class WildCard extends Card {
 
 	@Override
 	public String displayCard() {
-		return(getColor() + "-WC"); // It will be displayed as R-WC for example.
-		
+		if ( this.getColor() == null ) {
+			return ("WC");
+		} else {
+			return (this.getColor() + "-WC"); // It will be displayed as R-WC for example.
+		}
 	}
 
-	
-	// Not needed methods for this class :
+
+	@Override
+	public void specialEvent(Player nextPlayer,int nbrOfPlayers, Pile deck, Pile discardPile, Scanner reader) {
+		// This card does nothing by itself as the chooseColor method is in the player class.
+	}
+
 
 	@Override
 	public int getNbr() {
 		// TODO Auto-generated method stub
-		return -1;
+		return 0;
 	}
-
-	@Override
-	public void skip(Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawTwo(Player nextPlayer,Pile deck,Pile discardPile) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawFourCards(Player player,Player nextPlayer,int pos,Pile deck,Pile discardPile,Scanner reader) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void reverse(int nbrOfPlayers,Player nextPlayer) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

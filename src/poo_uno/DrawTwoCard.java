@@ -18,6 +18,7 @@ public class DrawTwoCard extends Card {
 	@Override
 	public void specialEvent(Player nextPlayer,int nbrOfPlayers, Pile deck, Pile discardPile, Scanner reader) {
 		nextPlayer.drawCard(2,deck,discardPile);
+		nextPlayer.setSkip(true);
 	}
 
 }

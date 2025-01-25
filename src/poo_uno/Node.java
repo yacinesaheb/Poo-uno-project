@@ -6,43 +6,37 @@ import java.util.Scanner;
 public class Node {
 
     // Attributes
-    private Human human; // Stores a Human player (null if this node represents a Robot)
-    private MediumRobot mrobot; // Stores a Robot player (null if this node represents a Human)
-    private EasyRobot erobot;
+    private Player player; // Stores a Human player (null if this node represents a Robot)
+   
 
     Node next; // Pointer to the next node in the list
     Node prev; // Pointer to the previous node in the list
 
     // Methods
     public Node() {
-        this.human = null;
-        this.mrobot = null;
-        this.erobot = null;
+        this.player = null;
         this.next = null;
         this.prev = null;
     }
     // Constructor//note sure i need it 
-    public Player getnext() {
-    	  if (human != null) {
-    		  return human;
-              
-          } else if (mrobot != null) {
-            return mrobot;
-          }else if (erobot != null) {
-        	  return erobot; 
-          }  
-          else {
-              // Indicate that the node is uninitialized
-              System.out.println("NODE IS UNINITIALIZED");
-          }
+    public Player getnext(boolean gamedirection, Node tracker) {
+  	  if (player != null) {
+  		  
+  		  if (gamedirection) {
+  	            return tracker.next.player;
+  	        } else {
+  	            return tracker.prev.player;
+  	        }
+            
+        }
 		return null;
-        
-    }
+      
+  }
     
     // Initializes the node for a human player.playerName The name of the human player to be added.
     public void addHuman(String playerName) {
-        this.human = new Human(); // Create a new Human object
-        this.human.setName(playerName); // Assign the player's name
+        this.player = new Human(); // Create a new Human object
+        this.player.setName(playerName); // Assign the player's name
         
         this.next = null; // Initialize pointers to null
         this.prev = null;
@@ -52,8 +46,8 @@ public class Node {
     
     public void addMediumRobot(int i) {
        
-    	this.mrobot = new MediumRobot(); // Create a new Medium Robot object	
-    	this.mrobot.setName("medium robot "+i);
+    	this.player= new MediumRobot(); // Create a new Medium Robot object	
+    	this.player.setName("medium robot "+i);
         this.next = null; // Initialize pointers to null
         this.prev = null;
         
@@ -61,102 +55,51 @@ public class Node {
     
     public void addEasyRobot(int i2) {
     	
-        this.erobot = new EasyRobot(); // Create a new Medium Robot object
-        this.erobot.setName("easy robot "+i2);
+        this.player = new EasyRobot(); // Create a new Medium Robot object
+        this.player.setName("easy robot "+i2);
         this.next = null; // Initialize pointers to null
         this.prev = null;
     }
 
     //Displays information about the node.If the node represents a human player, it displays the player's name.Otherwise, it indicates that the node represents a robot.
     public void displayplayers() {
-        if (human != null) {
+        if (player != null) {
             // Display the human player's name
-            System.out.println("PLAYER NAME: " + human.getName());
-        } else if (mrobot != null) {
-            // Indicate that this node represents a robot
-            System.out.println(mrobot.getName());
-        }else if (erobot != null) {
-            // Indicate that this node represents a robot
-            System.out.println(erobot.getName());
-        }  
-        else {
+            System.out.println("PLAYER NAME: " + player.getName());
+        } else {
             // Indicate that the node is uninitialized
             System.out.println("NODE IS UNINITIALIZED");
         }
-    }    
+    }
+    
+
+    
     //method to draw
     public void distribution (Pile deck,Pile discardPile) {
-    	 if (human != null) {
-             this.human.drawCard( 1,  deck, discardPile);
-         } else if (mrobot != null) {
-             // Indicate that this node represents a robot
-        	 this.mrobot.drawCard( 1,  deck ,discardPile);
-         }else if (erobot != null) {
-             // Indicate that this node represents a robot
-        	 this.erobot.drawCard( 1,  deck, discardPile);
-         }  
-         else {
-             // Indicate that the node is uninitialized
-             System.out.println("NODE IS UNINITIALIZED");
+    	 if (player != null) {
+             this.player.drawCard( 1,  deck, discardPile);
          }
-    	
-    	
-    	
-    	
-    	
-    	
-    }
+    	}
 
 
-    public int playProcess(Player nextplayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,        Scanner reader){
+    public int playProcess(Player nextplayer,Pile discardPile,Pile deck, boolean[] firstPlayedCard,int nbrOfPlayers,Scanner reader){
     	int temp=0;
-		if (human != null) {
-           return temp=human.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
-        } else if (mrobot != null) {
-            // Indicate that this node represents a robot
-        	return temp=mrobot.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
-        }else if (erobot != null) {
-            // Indicate that this node represents a robot
-        	return temp=erobot.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
-        }  
-        else {
-            // Indicate that the node is uninitialized
-            System.out.println("NODE IS UNINITIALIZED");
+		if (player != null) {
+           return temp=player.playProcess(nextplayer, discardPile, deck,firstPlayedCard,nbrOfPlayers,reader);
         }
 		return temp;
-		
-		
-		
-	}
+		}
     public int getnbrcards() {
-        if (human != null) {
+        if (player!= null) {
             
-        return this.human.getNbrCards();
-        } else if (mrobot != null) {
-        	return this.mrobot.getNbrCards();
-        }else if (erobot != null) {
-            // Indicate that this node represents a robot
-        	return this.erobot.getNbrCards();
-        }  
-        else {
-            // Indicate that the node is uninitialized
-            System.out.println("NODE IS UNINITIALIZED");
+        return this.player.getNbrCards();
         }
 		return 0;
     }
     public String getnames() {
-        if (human != null) {
+        if (player!= null) {
             
-        return this.human.getName();
-        } else if (mrobot != null) {
-        	return this.mrobot.getName();
-        }else if (erobot != null) {
-            // Indicate that this node represents a robot
-        	return this.erobot.getName();
-        }  
-        else {
-            // Indicate that the node is uninitialized
-            System.out.println("NODE IS UNINITIALIZED");
+        return this.player.getName();
         }
 		return "";
     }

@@ -110,7 +110,7 @@ public class Game {
         int playerRemaining=game.numberofplayers;
         int j=1;
         while (playerRemaining > 1 ) { // Condition to break the game
-        	Game.tracker.playProcess(Game.tracker.next.getnext(),game.discardPile,game.deck,game.firstPlayedCard,game.numberofplayers,reader); 
+        	Game.tracker.playProcess(Game.tracker.next.getnext(gamedirection, tracker),game.discardPile,game.deck,game.firstPlayedCard,game.numberofplayers,reader); 
         	// Check if the current player has no cards left
         	if (Game.tracker.getnbrcards()== 0) {
         		playerRemaining--;
@@ -120,7 +120,7 @@ public class Game {
         		Game.tracker.removeNode();
         	}
         	System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------");
-        	if ( Game.tracker.next.getnext() instanceof Human ) { // Only displays the current played card if the human is the next to play for better readability.
+        	if ( Game.tracker.next.getnext(gamedirection, tracker) instanceof Human ) { // Only displays the current played card if the human is the next to play for better readability.
         		System.out.println(" Current Card in play :" + game.discardPile.getTopCard().displayCard());
         		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
         	}

@@ -1,34 +1,29 @@
 package poo_uno;
 
+	// A class representing a circular doubly linked list of nodes. Each node can store either a human or a robot player.
+	public class Turn {
+		
+		// Attributes
+		private Node head; // The head of the circular doubly linked list
 
-// A class representing a circular doubly linked list of nodes. Each node can store either a human or a robot player.
-public class Turn {
-    // Attributes
-    private Node head; // The head of the circular doubly linked list
-
-    // Constructor
+		// Getters
+		public Node gethead() {
+			return this.head;
+		}
     
-    public Node gethead() {
-    	
-    	return this.head;
-    }
-    
-    public String getnames() {
-			return this.head.getnames();
-	}
+		public String getnames() {
+				return this.head.getnames();
+		}
    
-     //Initializes an empty circular doubly linked list.
-    
-    public Turn() {
-        this.head = null;
-    }
+		//Initializes an empty circular doubly linked list.
+		public Turn() {
+			this.head = null;
+		}
 
     // Methods
-
-        // Adds a new human player to the list.
-   
+		
      //@param playerName The name of the human player to add.
-    public void addHumain(String playerName) {
+    public void addHumain(String playerName) {  // Adds a new human player to the list.
         Node newNode = new Node();
         newNode.addHuman(playerName); // Initialize the node with the human player
         if (head == null) {
@@ -96,14 +91,9 @@ public class Turn {
         }
     }
 	
-	
-
-    // Displays the list of players.
-     //Prints the name of each player in the list, indicating if it's a human or a robot.
-     
-    public void display() {
+    public void display() { //Prints the name of each player in the list.
         if (head == null) {
-            System.out.println("Liste vide!");
+            System.out.println("Liste vide!"); 
             return;
         }
         Node temp = head;
@@ -112,14 +102,9 @@ public class Turn {
             temp = temp.next;
         } while (temp != head);
         System.out.println();
-    }
-
+    }   
    
-    
-    // Clears the list and releases all memory.
-    // Sets all nodes' `next` and `prev` pointers to `null` and sets the head to `null`.
-     
-    public void clear() {
+    public void clear() { // Clears the list and releases all memory.
         if (head == null) return; // If the list is already empty, do nothing
         Node current = head;
         do {
@@ -129,8 +114,5 @@ public class Turn {
             current = nextNode; // Move to the next node
         } while (current != head);
         head = null; // Set the head to `null` to signify the list is empty
-    }
-
-
-	
+    }	
 }

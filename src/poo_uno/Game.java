@@ -4,28 +4,17 @@ import java.util.Scanner;
 
 public class Game {
 
-	
-	
-    // Methods of the class Game
-	
-
     // Attributes
-    
     private Pile deck; // Represents the deck of cards (implement Deck separately)
     private static boolean gamedirection = true; // Tracks the game direction (true for clockwise, false for counterclockwise)
     private Turn turn = new Turn();// Linked list to manage players
     private static Node tracker = new Node();
     private Pile discardPile;
     private boolean[] firstPlayedCard = { true };
-
-    // Attributes for players
     private int numberofplayers; // Total number of players
     private String playersnames; // Array to store player names
 
     // Getters and setters of some attributes.
-    
-    
-    
 	public static boolean getGamedirection() { // Game direction getter
 		return gamedirection; 
 	}
@@ -34,18 +23,11 @@ public class Game {
 		Game.gamedirection = gamedirection; 
 	}
 
-    
-    
-    
     //Fills the Turn linked list with players.Adds human players first, followed by any additional robots (if applicable).
-    public void fillTurn(Scanner reader) {
-    	//Asks the user how many players will participate in the game.     
+    public void fillTurn(Scanner reader) {   
     	System.out.println("How many players?");
         this.numberofplayers = reader.nextInt(); // Read the number of players
         reader.nextLine(); // Consume the newline character to avoid skipping input
-    	
-    	
-    	
     	int i = 0;
         // Add humans and robots players to the turn
         while (i < this.numberofplayers) {

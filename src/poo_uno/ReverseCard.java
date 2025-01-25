@@ -30,9 +30,4 @@ public class ReverseCard extends Card {
 		}
 	}
 
-	@Override
-	public int getNbr() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

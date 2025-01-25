@@ -20,9 +20,4 @@ public class SkipCard extends Card {
 		nextPlayer.setSkip(true);
 	}
 
-	@Override
-	public int getNbr() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

@@ -29,8 +29,15 @@ public class RegularCard extends Card {
 	@Override
 	public boolean cardMatches(Pile discardPile) {
 		boolean match = false;
-		if ( ( this.getColor() == discardPile.getTopCard().getColor() ) || (this.nbr == discardPile.getTopCard().getNbr()) ) {
-			return true;
+		if (discardPile.getTopCard() instanceof RegularCard) { // If the top card of the discard pile is a regular card.
+			int nbrDpTop = ((RegularCard) discardPile.getTopCard()).getNbr(); // Downcast of the top card to a RegularCard to use the getNbr method.
+			if ( ( this.getColor() == discardPile.getTopCard().getColor() ) || (this.nbr == nbrDpTop) ) {
+				return true;
+			}
+		} else { // If the top card of the discard pile is anything else.
+			if ( this.getColor() == discardPile.getTopCard().getColor() ) {
+				return true;
+			}
 		}
 		return match;		
 	}

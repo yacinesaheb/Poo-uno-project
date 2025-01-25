@@ -20,9 +20,4 @@ public class DrawTwoCard extends Card {
 		nextPlayer.drawCard(2,deck,discardPile);
 	}
 
-	@Override
-	public int getNbr() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

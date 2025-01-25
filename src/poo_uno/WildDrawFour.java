@@ -19,11 +19,4 @@ public class WildDrawFour extends Card {
 		nextPlayer.drawCard(4,deck,discardPile);
 		nextPlayer.setSkip(true);
 	}
-
-
-	@Override
-	public int getNbr() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

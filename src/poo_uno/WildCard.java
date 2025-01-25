@@ -19,9 +19,4 @@ public class WildCard extends Card {
 	}
 
 
-	@Override
-	public int getNbr() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

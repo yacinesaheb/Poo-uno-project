@@ -17,24 +17,31 @@ import cardgame_fw.Layouts.Mainmenu.MMLshort;
 
 public final class MainMenu extends MyFrame implements ActionListener {
 	
-	private static ImageIcon logoUno = new ImageIcon("src\\Images\\Extra\\uno.png");
 	private MyButton newGame;
 	private MyButton loadGame;
 	private MyButton options;
 	private MyButton exit;
 	
-	public MainMenu(String Title, ImageIcon Icon, String BackgroundImagePath) {
+	private static MainMenu instance = null; // This prevents the user from instantiating more than one MainMenu. 
+	
+	private MainMenu(String Title, ImageIcon Icon, String BackgroundImagePath) {
 		
 		super(Title, Icon, BackgroundImagePath); // Calls MyFrame constructor.
-		this.setMinimumSize(new Dimension(300,300));
-		this.setSize(1920,1080);
-		this.setLocationRelativeTo(null);
+		this.setMinimumSize(new Dimension(300,300)); // Sets minimum size of the window because otherwise components are just not displayed.
 		
-		newGame = new MyButton("New Game"); // Creating a custom "New Game" Button.
-		loadGame = new MyButton("Load Game"); // Creating a custom "Load Game" Button.
-		options = new MyButton("Options"); // Creating a custom "Options" Button.
-		exit = new MyButton("Exit"); // Creating a custom "Exit" Button.
-		ImageLabel unologo = new ImageLabel(logoUno); // Creating a new ImageLabel with the UNO Logo.
+		// Instantiating the Buttons from MyButton.
+		newGame = new MyButton("New Game"); 
+		loadGame = new MyButton("Load Game"); 
+		options = new MyButton("Options"); 
+		exit = new MyButton("Exit"); 
+		
+		// Adding Action Listeners to Buttons
+		newGame.addActionListener(this);
+		loadGame.addActionListener(this);
+		options.addActionListener(this);
+		exit.addActionListener(this);
+		
+		ImageLabel unologo = new ImageLabel("src\\Images\\Extra\\uno.png"); // Creating a new ImageLabel with the UNO Logo.
 		
 		// Adding the components
 		this.add(unologo);
@@ -55,11 +62,16 @@ public final class MainMenu extends MyFrame implements ActionListener {
         });
 		
 		
-		// Configuration of Exit Button
-		exit.addActionListener(this);
-		
 		this.setVisible(true); // Sets the Menu to visible in the end to avoid painting problems.
 	}
+	
+	public static MainMenu getInstance(String Title, ImageIcon Icon, String BackgroundImagePath) { // This here is to get only one instance of mainmenu
+		if (instance == null) {
+			instance = new MainMenu(Title,Icon,BackgroundImagePath);
+		}
+		return instance;
+	}
+	
 	
 	@Override
 	public void adjustLayout() { // This method is called to adjust the layout of the main menu depending on the size of the window.
@@ -95,14 +107,6 @@ public final class MainMenu extends MyFrame implements ActionListener {
 			// Opens the list of the previous left and saves games.
 		}
 		
-	}
-
-	
-	public static void main(String[] args) {
-		
-		ImageIcon unoicon = new ImageIcon("src\\Images\\Extra\\Logo_Uno.png");
-				
-		MainMenu mainmenu = new MainMenu("Main Menu",unoicon,"src\\Images\\Extra\\DarkRed Background.jpg"); // Creates the main menu.
 	}
 
 }

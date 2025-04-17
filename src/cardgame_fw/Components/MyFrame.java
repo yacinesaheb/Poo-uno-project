@@ -25,6 +25,8 @@ public class MyFrame extends JFrame implements LayoutManagement { // This Class 
 		this.setTitle(Title); // Sets the title of the window from the constructor's entry.
 		this.setIconImage(Icon.getImage()); // Set the Icon of the Window from the constructor's entry.
 		this.setContentPane(bgImg); // Sets the background of the window.
+		this.setSize(1920,1080); // Sets the default size of the frame.
+		this.setLocationRelativeTo(null); // When opening the window, it is centered in the screen.
 		
 	}
 	

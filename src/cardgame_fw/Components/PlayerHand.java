@@ -62,7 +62,7 @@ public class PlayerHand extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) { // When mouse entered the space of the card.
 				if (hoveredCard != null && hoveredCard != card && hoveredCard != selectedCard) { // If there is no hovered card (including this one) and the card is not selected.
-					hoveredCard.setHoverBorder(false); // Resets transparency.
+					hoveredCard.setHoverBorder(false); // Resets hover border.
 			        hoveredCard.repaint();
 			    }
 				if (card != selectedCard) { // If the card is not the already selected card.
@@ -73,7 +73,7 @@ public class PlayerHand extends JPanel {
 			}
 			
 			@Override
-			public void mouseExited(MouseEvent e) { // Basically just resets transparency to normal.
+			public void mouseExited(MouseEvent e) { // Basically just resets hover border.
 				if (card != selectedCard) {
 					card.setHoverBorder(false);
 			        card.repaint();

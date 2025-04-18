@@ -17,8 +17,6 @@ import cardgame_fw.Components.PlayerHand;
 
 public final class GameWd extends MyFrame implements ActionListener {
 	
-	private static GameWd instance = null; // This prevents the user from instantiating more than one MainMenu. 
-	
 	private MyButton exitGame;
 	private MyButton options;
 	private MyButton play;
@@ -27,8 +25,7 @@ public final class GameWd extends MyFrame implements ActionListener {
 	private GameWd(String Title, ImageIcon Icon, String BackgroundImagePath) {
 		
 		super(Title, Icon, BackgroundImagePath); // Calls the parent MyFrame constructor
-		this.setMinimumSize(new Dimension(300,300));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // This is temporary 
+		this.setMinimumSize(new Dimension(300,300)); 
 		this.setLayout(null);
 		
 		// Instantiating custom Buttons.
@@ -72,7 +69,17 @@ public final class GameWd extends MyFrame implements ActionListener {
 		
 	}
 	
-	public static GameWd getInstance(String Title, ImageIcon Icon, String BackgroundImagePath) { // This here is to get only one instance of GameWd
+	private static GameWd instance = null; // This prevents the user from instantiating more than one Game Window.
+	
+	public static GameWd getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(GameWd instance) {
+		GameWd.instance = instance;
+	}
+	
+	public static GameWd instantiate(String Title, ImageIcon Icon, String BackgroundImagePath) { // This here is to get only one instance of GameWd
 		if (instance == null) {
 			instance = new GameWd(Title,Icon,BackgroundImagePath);
 		}

@@ -7,6 +7,6 @@ public class MyRadioButton extends JRadioButton {
     public MyRadioButton(String text) {
         super(text);
         this.setFont(new Font("Arial", Font.PLAIN, 15));
-        this.setFocusable(false); // empêche le cadre focus moche
+        this.setFocusable(false); 
     }
 }
